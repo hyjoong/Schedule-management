@@ -3,18 +3,19 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
 import Main from "./pages/main";
+import { PAGE_PATH } from "./constants/route";
 
 const App = () => {
   return (
     <Router>
       <Switch>
-        <Route exact path="/">
+        <Route exact path={PAGE_PATH.HOME}>
           <Main />
         </Route>
-        <Route exact path="/login">
+        <Route exact path={PAGE_PATH.LOGIN}>
           <Login />
         </Route>
-        <Route exact path="/signup">
+        <Route exact path={PAGE_PATH.SIGN_UP}>
           <Signup />
         </Route>
       </Switch>
