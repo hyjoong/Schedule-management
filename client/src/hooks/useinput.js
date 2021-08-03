@@ -1,25 +1,25 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const useInput = (validator) => {
   const [inputValue, setInputValue] = useState("");
-
+  const [errorMessage, setErrorMessage] = useState(null);
   const validate = (value) => {
     if (!validator) return;
 
     try {
       validator(value);
+      setErrorMessage(null);
     } catch (error) {
-      console.log(error);
+      setErrorMessage(error.message);
     }
   };
 
   const setValueOnChange = (target) => {
-    const value = target;
+    const { value } = target;
     setInputValue(value);
     validate(value);
   };
-  console.log(inputValue); // 나중에 지워
-  return { inputValue, setValueOnChange };
+  return { inputValue, errorMessage, setValueOnChange };
 };
 
 export default useInput;
