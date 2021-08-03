@@ -6,8 +6,10 @@ import useInput from "../hooks/useinput";
 import { validateEmail } from "../validations/email";
 import { validatePassword } from "../validations/password";
 import { INPUT_PLACEHOLDER } from "../constants/placeholder";
-import { validateUsername } from "../validations/username";
+
 import Button from "../components/@commons/button";
+import { theme } from "../styles/theme";
+import { validateNickname } from "../validations/nickname";
 
 const Signup = () => {
   const {
@@ -24,7 +26,7 @@ const Signup = () => {
     inputValue: username,
     errorMessage: usernameErrorMessage,
     setValueOnChange: onUsernameChange,
-  } = useInput(validateUsername);
+  } = useInput(validateNickname);
 
   return (
     <FlexCenter>
@@ -59,7 +61,12 @@ const Signup = () => {
             onChange={onUsernameChange}
             placeholder={INPUT_PLACEHOLDER.USERNAME}
           />
-          <Button style={{ width: "100%", marginTop: "15px" }}>회원가입</Button>
+          <Button
+            backgroundColor={theme.lightBlue}
+            style={{ width: "100%", marginTop: "15px" }}
+          >
+            회원가입
+          </Button>
         </Block>
       </form>
     </FlexCenter>

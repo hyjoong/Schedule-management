@@ -9,6 +9,7 @@ const device = {
 };
 
 export const theme = {
+  navy: "#002C3E",
   black: "#333333",
   red: "#FF0000",
   white: "#FFFFFF",
