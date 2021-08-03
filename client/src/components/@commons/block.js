@@ -7,8 +7,7 @@ const Block = ({ ...props }) => {
 };
 
 const BlockBox = styled(FlexCenter)`
-  background-color: orange;
-  /* background-color: ${(props) => props.theme.white}; */
+  background-color: ${(props) => props.theme.white};
 `;
 
 export default Block;

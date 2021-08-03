@@ -1,4 +1,7 @@
 export const INPUT_PLACEHOLDER = {
   EMAIL: "email",
-  PASSWORLD: "password",
+  PASSWORD: "password",
+  REPASSWORD: "confirm password",
+  USERNAME: "username",
+  NICKNAME: "nickname",
 };

@@ -10,6 +10,7 @@ const device = {
 
 export const theme = {
   black: "#333333",
+  red: "#FF0000",
   white: "#FFFFFF",
   gray: "#323D45",
   yellow: "#FFA000",

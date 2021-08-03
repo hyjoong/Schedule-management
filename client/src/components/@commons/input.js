@@ -17,6 +17,10 @@ const InputBlock = styled.input`
   outline: none;
 `;
 
-const ErrorMessage = styled.span``;
+const ErrorMessage = styled.span`
+  color: ${(props) => props.theme.red};
+  font-size: 0.8rem;
+  font-weight: 600;
+`;
 
 export default Input;

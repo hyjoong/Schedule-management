@@ -13,7 +13,6 @@ const Login = () => {
   const { inputValue: password, setValueOnChange: onPasswordChange } = useInput(
     validatePassword
   );
-  console.log("email");
   const onLogin = async (event) => {
     event.preventDefault();
   };
@@ -37,7 +36,7 @@ const Login = () => {
           <Input
             type="password"
             value={password}
-            placeholder={INPUT_PLACEHOLDER.PASSWORLD}
+            placeholder={INPUT_PLACEHOLDER.PASSWOLD}
             style={{ marginBottom: "15px" }}
             onChange={onPasswordChange}
             required

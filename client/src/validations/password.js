@@ -3,3 +3,5 @@ export const validatePassword = (password) => {
     throw Error("비밀번호는 4글자 이상 20글자 이하로만 입력해주세요.");
   }
 };
+
+export const validateRePassword = (password) => {};
