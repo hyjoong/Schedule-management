@@ -12,16 +12,12 @@ import { useHistory } from "react-router-dom";
 import { PAGE_PATH } from "../constants/route";
 
 const Login = () => {
-  const {
-    inputValue: email,
-    errorMessage: emailErrorMessage,
-    setValueOnChange: onEmailChange,
-  } = useInput(validateEmail);
-  const {
-    inputValue: password,
-    errorMessage: passwordErrorMessage,
-    setValueOnChange: onPasswordChange,
-  } = useInput(validatePassword);
+  const { inputValue: email, setValueOnChange: onEmailChange } = useInput(
+    validateEmail
+  );
+  const { inputValue: password, setValueOnChange: onPasswordChange } = useInput(
+    validatePassword
+  );
   const onLogin = async (event) => {
     event.preventDefault();
   };
@@ -43,7 +39,6 @@ const Login = () => {
         >
           <Input
             value={email}
-            errorMessage={emailErrorMessage}
             placeholder={INPUT_PLACEHOLDER.EMAIL}
             style={{ marginTop: "15px" }}
             onChange={onEmailChange}
@@ -52,7 +47,6 @@ const Login = () => {
           <Input
             type="password"
             value={password}
-            errorMessage={passwordErrorMessage}
             placeholder={INPUT_PLACEHOLDER.PASSWORD}
             style={{ marginTop: "15px" }}
             onChange={onPasswordChange}

@@ -10,6 +10,7 @@ import { INPUT_PLACEHOLDER } from "../constants/placeholder";
 import Button from "../components/@commons/button";
 import { theme } from "../styles/theme";
 import { validateNickname } from "../validations/nickname";
+import { validateUsername } from "../validations/username";
 
 const Signup = () => {
   const {
@@ -26,6 +27,11 @@ const Signup = () => {
     inputValue: username,
     errorMessage: usernameErrorMessage,
     setValueOnChange: onUsernameChange,
+  } = useInput(validateUsername);
+  const {
+    inputValue: nickname,
+    errorMessage: nicknameErrorMessage,
+    setValueOnChange: onNicknameChange,
   } = useInput(validateNickname);
 
   return (
@@ -60,6 +66,13 @@ const Signup = () => {
             style={{ marginTop: "15px" }}
             onChange={onUsernameChange}
             placeholder={INPUT_PLACEHOLDER.USERNAME}
+          />
+          <Input
+            value={nickname}
+            errorMessage={nicknameErrorMessage}
+            style={{ marginTop: "15px" }}
+            onChange={onNicknameChange}
+            placeholder={INPUT_PLACEHOLDER.NICKNAME}
           />
           <Button
             backgroundColor={theme.lightBlue}
