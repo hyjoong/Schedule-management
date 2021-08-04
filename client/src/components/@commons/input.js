@@ -14,6 +14,8 @@ const InputBlock = styled.input`
   font-size: 1rem;
   width: 100%;
   padding: 0.75rem 1.25rem;
+  ${({ errorMessage, theme }) =>
+    errorMessage && `border: 1px solid ${theme.red}`}
   outline: none;
 `;
 
