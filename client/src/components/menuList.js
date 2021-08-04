@@ -6,8 +6,8 @@ import {
   FolderOpenOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
-import SubMenu from "antd/lib/menu/SubMenu";
 const MenuList = () => {
+  const { SubMenu } = Menu;
   return (
     <>
       <Menu
