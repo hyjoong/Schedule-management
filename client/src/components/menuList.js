@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Menu } from "antd";
 import {
   ScheduleOutlined,
@@ -6,6 +7,7 @@ import {
   FolderOpenOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
+import { MENU } from "../constants/route";
 
 const MenuList = () => {
   const { SubMenu } = Menu;
@@ -29,7 +31,7 @@ const MenuList = () => {
           }
           style={{ fontSize: "1rem", marginBottom: "2rem" }}
         >
-          Schedule
+          <Link to={MENU.SCHEDULE}> Schedule</Link>
         </Menu.Item>
         <Menu.Item
           key="3"
@@ -40,7 +42,7 @@ const MenuList = () => {
           }
           style={{ fontSize: "1rem", marginBottom: "2rem" }}
         >
-          Calendar
+          <Link to={MENU.CALENDAR}> Calendar</Link>
         </Menu.Item>
         <Menu.Item
           key="4"
@@ -51,7 +53,7 @@ const MenuList = () => {
           }
           style={{ fontSize: "1rem", marginBottom: "2rem" }}
         >
-          History
+          <Link to={MENU.HISTORY}> History</Link>
         </Menu.Item>
         <SubMenu
           key="sub1"
@@ -64,6 +66,8 @@ const MenuList = () => {
           style={{
             fontSize: "1rem",
             marginBottom: "2rem",
+
+            height: "80px",
           }}
         >
           <Menu.Item key="5" style={{ fontSize: "1rem", marginTop: "0.2rem" }}>
