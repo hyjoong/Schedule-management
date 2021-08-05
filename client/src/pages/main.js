@@ -1,14 +1,14 @@
 import MenuList from "../components/menuList";
 import { Flex } from "../components/shared/flexContainer";
 import LayoutScreen from "../components/templates/layoutScreen";
-import Schedule from "../components/schedule/schedule";
+import ScheduleLayout from "../components/schedule/scheduleLayout";
 
 const Main = () => {
   return (
     <Flex style={{ height: "100%" }}>
       <MenuList />
       <LayoutScreen>
-        <Schedule />
+        <ScheduleLayout />
       </LayoutScreen>
     </Flex>
   );

@@ -2,27 +2,36 @@ import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import { TAB_TITLE } from "../../constants/title";
 import { Flex, FlexCenter } from "../shared/flexContainer";
+import TodoList from "./todoList";
+import Done from "./done";
 
-const TodoTab = () => {
+const ScheduleLayout = () => {
   const [active, setActive] = useState(0);
   const onChangeTab = useCallback((key) => {
     setActive(key);
   }, []);
+  const scheduleTabContents = {
+    0: <TodoList />,
+    1: <Done />,
+  };
 
   return (
-    <TabWrapper>
-      {TAB_TITLE.map((title, idx) => {
-        return (
-          <Tab
-            active={active === idx}
-            key={idx}
-            onClick={() => onChangeTab(idx)}
-          >
-            <TabTitle>{title}</TabTitle>
-          </Tab>
-        );
-      })}
-    </TabWrapper>
+    <>
+      <TabWrapper>
+        {TAB_TITLE.map((title, idx) => {
+          return (
+            <Tab
+              active={active === idx}
+              key={idx}
+              onClick={() => onChangeTab(idx)}
+            >
+              <TabTitle>{title}</TabTitle>
+            </Tab>
+          );
+        })}
+      </TabWrapper>
+      {scheduleTabContents[active]}
+    </>
   );
 };
 const TabWrapper = styled(Flex)`
@@ -42,4 +51,4 @@ const TabTitle = styled(FlexCenter)`
   height: 100%;
 `;
 
-export default TodoTab;
+export default ScheduleLayout;

@@ -7,7 +7,7 @@ import {
   FolderOpenOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
-import { MENU } from "../constants/route";
+import { MENU, PAGE_PATH } from "../constants/route";
 
 const MenuList = () => {
   const { SubMenu } = Menu;
