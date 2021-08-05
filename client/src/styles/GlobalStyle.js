@@ -5,7 +5,7 @@ const GlobalStyle = createGlobalStyle`
     ${reset};
  
     body{
-        font-family: 'Noto Sans KR', sans-serif;
+        font-family: 'Noto Sans KR', sans-serif; 
     };
     button{
         display: flex;

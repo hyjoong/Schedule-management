@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
-import Todo from "./todo";
+import TodoList from "./todoList";
 import Done from "./done";
 import { TAB_TITLE } from "../../constants/title";
 import { Flex, FlexCenter } from "../shared/flexContainer";
@@ -11,7 +11,7 @@ const Schedule = () => {
     setActive(key);
   }, []);
   const scheduleTabContents = {
-    0: <Todo />,
+    0: <TodoList />,
     1: <Done />,
   };
   return (
@@ -36,11 +36,6 @@ const Schedule = () => {
   );
 };
 
-const TabTitle = styled(FlexCenter)`
-  width: 100%;
-  height: 100%;
-`;
-
 const ScheduleTemplate = styled.div`
   width: 100%;
   height: 93vh;
@@ -50,7 +45,7 @@ const ScheduleWrapper = styled.div`
   height: 90%;
   margin: 3rem;
   border-radius: 1rem;
-  border: 3px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
 const TabWrapper = styled(Flex)`
@@ -64,5 +59,9 @@ const Tab = styled.div`
   border-radius: 1rem 1rem 0 0;
   border: 1px solid rgba(0, 0, 0, 0.1);
   cursor: pointer;
+`;
+const TabTitle = styled(FlexCenter)`
+  width: 100%;
+  height: 100%;
 `;
 export default Schedule;

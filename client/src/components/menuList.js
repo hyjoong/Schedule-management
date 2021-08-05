@@ -18,38 +18,60 @@ const MenuList = () => {
       >
         <Menu.Item
           key="1"
-          icon={<ScheduleOutlined style={{ fontSize: "1rem" }} />}
+          style={{ fontSize: "1rem", marginBottom: "3.5rem" }}
+        ></Menu.Item>
+        <Menu.Item
+          key="2"
+          icon={
+            <ScheduleOutlined
+              style={{ fontSize: "1rem", marginRight: "0.5rem" }}
+            />
+          }
           style={{ fontSize: "1rem", marginBottom: "2rem" }}
         >
           Schedule
         </Menu.Item>
         <Menu.Item
-          key="2"
-          icon={<CalendarOutlined style={{ fontSize: "1rem" }} />}
+          key="3"
+          icon={
+            <CalendarOutlined
+              style={{ fontSize: "1rem", marginRight: "0.5rem" }}
+            />
+          }
           style={{ fontSize: "1rem", marginBottom: "2rem" }}
         >
           Calendar
         </Menu.Item>
         <Menu.Item
-          key="3"
-          icon={<FolderOpenOutlined style={{ fontSize: "1rem" }} />}
+          key="4"
+          icon={
+            <FolderOpenOutlined
+              style={{ fontSize: "1rem", marginRight: "0.5rem" }}
+            />
+          }
           style={{ fontSize: "1rem", marginBottom: "2rem" }}
         >
           History
         </Menu.Item>
         <SubMenu
           key="sub1"
-          icon={<SettingOutlined style={{ fontSize: "1rem" }} />}
+          icon={
+            <SettingOutlined
+              style={{ fontSize: "1rem", marginRight: "0.5rem" }}
+            />
+          }
           title="Setting"
           style={{
             fontSize: "1rem",
             marginBottom: "2rem",
-            position: "absolute",
-            bottom: "7%",
           }}
         >
-          <Menu.Item key="4">My Info</Menu.Item>
-          <Menu.Item key="5">Logout</Menu.Item>
+          <Menu.Item key="5" style={{ fontSize: "1rem", marginTop: "0.2rem" }}>
+            My Info
+          </Menu.Item>
+          <Menu.Item key="6" style={{ fontSize: "1rem", marginTop: "0.2rem" }}>
+            Logout
+          </Menu.Item>
         </SubMenu>
       </Menu>
     </>
