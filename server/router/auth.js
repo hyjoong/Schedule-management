@@ -13,18 +13,19 @@ const validateCredential = [
     .withMessage("username should be at least 5 characters"),
   body("password")
     .trim()
-    .isLength({ min: 4 })
+    .isLength({ min: 5 })
     .withMessage("password should be at least 4 characters"),
   validate,
 ];
 
 const validateSignup = [
   ...validateCredential,
-  body("nickname").notEmpty().withMessage("nickname is missing"),
   body("email").isEmail().normalizeEmail().withMessage("invalid Email"),
+  body("nickname").notEmpty().withMessage("nickname is missing"),
+  validate,
 ];
 
-router.post("./signup", validateSignup, authController.signup);
-router.post("./login", validateCredential, authController.login);
+router.post("/signup", validateSignup, authController.signup);
+router.post("/login", validateCredential, authController.login);
 
 export default router;
