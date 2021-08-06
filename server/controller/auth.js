@@ -1,7 +1,11 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import {} from "express-async-errors";
-import userRepository from "../data/auth.js";
+import * as userRepository from "../data/auth.js";
+
+const jwtSecretKey = "F2dsndANSdskndQU8";
+const jwtExpiresInDays = "2d";
+const bcryptSaltRounds = 12;
 
 export async function signup(req, res) {
   const { email, password, username, nickname } = req.body;
@@ -32,7 +36,7 @@ export async function login(req, res) {
     return res.status(401).json({ message: "Invalid user or password" });
   }
   const token = createJwtToken(user.id);
-  res.status(200).json({ token, username });    
+  res.status(200).json({ token, username });
 }
 
 function createJwtToken(id) {

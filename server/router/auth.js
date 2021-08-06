@@ -1,4 +1,10 @@
-const { validate } = require("../middleware/validator");
+import express from "express";
+import {} from "express-async-errors";
+import { body } from "express-validator";
+import { validate } from "../middleware/validator.js";
+import * as authController from "../controller/auth.js";
+
+const router = express.Router();
 
 const validateCredential = [
   body("username")
@@ -17,3 +23,8 @@ const validateSignup = [
   body("nickname").notEmpty().withMessage("nickname is missing"),
   body("email").isEmail().normalizeEmail().withMessage("invalid Email"),
 ];
+
+router.post("./signup", validateSignup, authController.signup);
+router.post("./login", validateCredential, authController.login);
+
+export default router;
