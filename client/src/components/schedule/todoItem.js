@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Flex, FlexCenter, FlexBetween } from "../shared/flexContainer";
+import { Flex, FlexBetween } from "../shared/flexContainer";
 import { Radio } from "antd";
 
 const TodoItem = () => {
