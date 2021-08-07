@@ -9,7 +9,10 @@ import {
 } from "@ant-design/icons";
 import { MENU } from "../constants/route";
 
-const MenuList = () => {
+const MenuList = ({ onChangeScreen }) => {
+  const changeScreen = (e) => {
+    onChangeScreen(e.key);
+  };
   const { SubMenu } = Menu;
   return (
     <>
@@ -24,6 +27,7 @@ const MenuList = () => {
         ></Menu.Item>
         <Menu.Item
           key="2"
+          onClick={(e) => changeScreen(e)}
           icon={
             <ScheduleOutlined
               style={{ fontSize: "1rem", marginRight: "0.5rem" }}
@@ -31,10 +35,11 @@ const MenuList = () => {
           }
           style={{ fontSize: "1rem", marginBottom: "2rem" }}
         >
-          <Link to={MENU.SCHEDULE}> Schedule</Link>
+          Schedule
         </Menu.Item>
         <Menu.Item
           key="3"
+          onClick={(e) => changeScreen(e)}
           icon={
             <CalendarOutlined
               style={{ fontSize: "1rem", marginRight: "0.5rem" }}
@@ -46,6 +51,7 @@ const MenuList = () => {
         </Menu.Item>
         <Menu.Item
           key="4"
+          onClick={(e) => changeScreen(e)}
           icon={
             <FolderOpenOutlined
               style={{ fontSize: "1rem", marginRight: "0.5rem" }}
@@ -70,10 +76,18 @@ const MenuList = () => {
             height: "80px",
           }}
         >
-          <Menu.Item key="5" style={{ fontSize: "1rem", marginTop: "0.2rem" }}>
+          <Menu.Item
+            key="5"
+            onClick={(e) => changeScreen(e)}
+            style={{ fontSize: "1rem", marginTop: "0.2rem" }}
+          >
             My Info
           </Menu.Item>
-          <Menu.Item key="6" style={{ fontSize: "1rem", marginTop: "0.2rem" }}>
+          <Menu.Item
+            key="6"
+            onClick={(e) => changeScreen(e)}
+            style={{ fontSize: "1rem", marginTop: "0.2rem" }}
+          >
             Logout
           </Menu.Item>
         </SubMenu>
