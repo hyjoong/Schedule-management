@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Menu } from "antd";
 import {
   ScheduleOutlined,
@@ -7,7 +6,6 @@ import {
   FolderOpenOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
-import { MENU } from "../constants/route";
 
 const MenuList = ({ onChangeScreen }) => {
   const changeScreen = (e) => {
@@ -47,7 +45,7 @@ const MenuList = ({ onChangeScreen }) => {
           }
           style={{ fontSize: "1rem", marginBottom: "2rem" }}
         >
-          <Link to={MENU.CALENDAR}> Calendar</Link>
+          Calendar
         </Menu.Item>
         <Menu.Item
           key="4"
@@ -59,7 +57,7 @@ const MenuList = ({ onChangeScreen }) => {
           }
           style={{ fontSize: "1rem", marginBottom: "2rem" }}
         >
-          <Link to={MENU.HISTORY}> History</Link>
+          History
         </Menu.Item>
         <SubMenu
           key="sub1"

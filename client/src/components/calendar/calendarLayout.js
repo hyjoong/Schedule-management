@@ -1,15 +1,25 @@
 import React from "react";
-import { Calendar } from "antd";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import styled from "styled-components";
 
 const CalendarLayout = () => {
-  function onPanelChange(value, mode) {
-    console.log(value.format("YYYY-MM-DD"), mode);
-  }
   return (
-    <>
-      <Calendar onPanelChange={onPanelChange} />
-    </>
+    <CalendarWrapper>
+      <FullCalendar
+        plugins={[dayGridPlugin]}
+        initialView="dayGridMonth"
+        height="90%"
+        width="90%"
+      />
+    </CalendarWrapper>
   );
 };
+
+const CalendarWrapper = styled.div`
+  width: 90%;
+  height: 90%;
+  margin: 1rem auto 0;
+`;
 
 export default CalendarLayout;
