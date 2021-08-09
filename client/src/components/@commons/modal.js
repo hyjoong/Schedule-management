@@ -1,37 +1,52 @@
-import React, { useState } from "react";
-import { Modal, Button, DatePicker } from "antd";
-
-const ModalComponent = () => {
-  function onChange(date, dateString) {
-    console.log(date, dateString);
-  }
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
+import React from "react";
+import styled from "styled-components";
+import Portal from "./portal";
+import { FlexJustifyCenter, FlexCenter } from "../shared/flexContainer";
+import Button from "./button";
+const ModalComponent = ({ children }) => {
+  console.log(children);
+  console.log("hi");
   return (
-    <>
-      <Button type="primary" onClick={showModal}>
-        Mod
-      </Button>
-      <Modal
-        title="일정 추가"
-        visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        sss
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Modal>
-    </>
+    <Portal>
+      <ModalWrapper>
+        <Dimmed />
+        <Button>ssss</Button>
+
+        <Content>{children} </Content>
+      </ModalWrapper>
+    </Portal>
   );
 };
+
+const ModalWrapper = styled(FlexCenter)`
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+`;
+
+const Dimmed = styled.div`
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  transition: opacity 0.5s;
+`;
+
+const Header = styled.div``;
+
+const Content = styled(FlexJustifyCenter)`
+  flex-direction: column;
+  background-color: white;
+  width: 250px;
+  height: 300px;
+  padding: 4rem;
+  z-index: 2;
+  border: 1px solid black;
+`;
 
 export default ModalComponent;

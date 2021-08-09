@@ -1,12 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { FlexCenter } from "../shared/flexContainer";
 
 const Block = ({ ...props }) => {
   return <BlockBox {...props} />;
 };
 
-const BlockBox = styled(FlexCenter)`
+const BlockBox = styled.div`
   background-color: ${(props) => props.theme.white};
 `;
 

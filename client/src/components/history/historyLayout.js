@@ -1,34 +1,24 @@
 import React, { useState } from "react";
-import { Modal } from "antd";
 import Block from "../@commons/block";
+import "../../styles/datepicker.css";
+import DatePicker from "react-datepicker";
+import ModalComponent from "../@commons/modal";
+import Input from "../@commons/input";
 
 const HistoryLayout = () => {
-  const [isModalVisible, setIsModalVisible] = useState(true);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModal = () => {
     setIsModalVisible(true);
   };
-
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
   return (
-    <Block>
-      <Modal
-        title="Basic Modal"
-        visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Modal>
-    </Block>
+    <>
+      <ModalComponent>
+        <DatePicker />
+        <DatePicker />
+        <Input />
+      </ModalComponent>
+    </>
   );
 };
 
