@@ -4,4 +4,5 @@ export const INPUT_PLACEHOLDER = {
   REPASSWORD: "confirm password",
   USERNAME: "username",
   NICKNAME: "nickname",
+  PLAN: "Enter your plan",
 };

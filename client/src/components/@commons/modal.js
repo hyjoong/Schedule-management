@@ -4,14 +4,11 @@ import Portal from "./portal";
 import { FlexJustifyCenter, FlexCenter } from "../shared/flexContainer";
 import Button from "./button";
 const ModalComponent = ({ children }) => {
-  console.log(children);
-  console.log("hi");
   return (
     <Portal>
       <ModalWrapper>
         <Dimmed />
-        <Button>ssss</Button>
-
+        <Button> </Button>
         <Content>{children} </Content>
       </ModalWrapper>
     </Portal>

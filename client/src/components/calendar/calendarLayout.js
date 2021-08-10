@@ -7,13 +7,22 @@ import Input from "../@commons/input";
 import ModalComponent from "../@commons/modal";
 import DatePicker from "react-datepicker";
 import useModal from "../../hooks/useModal";
+import useInput from "../../hooks/useinput";
+import { validatePlan } from "../../validations/plan";
+import { INPUT_PLACEHOLDER } from "../../constants/placeholder";
 
 const CalendarLayout = () => {
   const [dateStart, setDateStart] = useState("");
   const [dateEnd, setDateEnd] = useState("");
   const [isModal, setIsModal] = useState(false);
-  console.log(isModal);
 
+  const {
+    inputValue: plan,
+    errorMessage: planErrorMessage,
+    setValueOnChange: onPlanChange,
+  } = useInput(validatePlan);
+
+  console.log(plan);
   const showModal = () => {
     setIsModal(true);
   };
@@ -35,6 +44,8 @@ const CalendarLayout = () => {
   const handleDate = (day) => {
     console.log(day.dateStr);
     console.log(day.date);
+    setDateStart(day.date);
+    setDateEnd(day.date);
     openModal();
     setIsModal(true);
   };
@@ -84,7 +95,12 @@ const CalendarLayout = () => {
             onChange={(date) => setDateEnd(date)}
             endDate={dateEnd}
           />
-          <Input />
+          <Input
+            value={plan}
+            onChange={onPlanChange}
+            errorMessage={planErrorMessage}
+            placeholder={INPUT_PLACEHOLDER.PLAN}
+          />
         </ModalComponent>
       )}
     </>
