@@ -2,5 +2,12 @@
 
 .react-datepicker-wrapper {
   margin-bottom: 3rem;
-  width: 120px;
+  width: 80px;
+}
+
+.react-datepicker__input-container input {
+  border: none;
+  border-bottom: 1px solid #dcdcdc;
+  padding-left: 1rem;
+  width: 100%;
 }

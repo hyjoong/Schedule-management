@@ -1,21 +1,25 @@
 import React from "react";
 import styled from "styled-components";
 import Portal from "./portal";
-import { FlexJustifyCenter, FlexCenter } from "../shared/flexContainer";
+import { FlexJustifyCenter, FlexCenter, Flex } from "../shared/flexContainer";
 import Button from "./button";
 const ModalComponent = ({ children }) => {
   return (
     <Portal>
       <ModalWrapper>
-        <Dimmed />
-        <Button> </Button>
-        <Content>{children} </Content>
+        <Dimmed>
+          <Container>
+            <Button>X </Button>
+            <Content>{children} </Content>
+          </Container>
+        </Dimmed>
       </ModalWrapper>
     </Portal>
   );
 };
 
 const ModalWrapper = styled(FlexCenter)`
+  direction: column;
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -24,26 +28,26 @@ const ModalWrapper = styled(FlexCenter)`
   z-index: 1;
 `;
 
-const Dimmed = styled.div`
+const Dimmed = styled(FlexCenter)`
   position: fixed;
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  top: 0;
-  left: 0;
   transition: opacity 0.5s;
 `;
 
-const Header = styled.div``;
+const Container = styled(Flex)`
+  flex-direction: column;
+  width: 300px;
+  height: 300px;
+  background-color: white;
+  z-index: 2;
+  border: 1px solid black;
+  padding: 0 3rem;
+`;
 
 const Content = styled(FlexJustifyCenter)`
   flex-direction: column;
-  background-color: white;
-  width: 250px;
-  height: 300px;
-  padding: 4rem;
-  z-index: 2;
-  border: 1px solid black;
 `;
 
 export default ModalComponent;

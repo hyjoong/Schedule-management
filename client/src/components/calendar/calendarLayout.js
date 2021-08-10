@@ -6,10 +6,13 @@ import styled from "styled-components";
 import Input from "../@commons/input";
 import ModalComponent from "../@commons/modal";
 import DatePicker from "react-datepicker";
+import "../../styles/datepicker.css";
 import useModal from "../../hooks/useModal";
 import useInput from "../../hooks/useinput";
 import { validatePlan } from "../../validations/plan";
 import { INPUT_PLACEHOLDER } from "../../constants/placeholder";
+import Button from "../@commons/button";
+import { Flex } from "../shared/flexContainer";
 
 const CalendarLayout = () => {
   const [dateStart, setDateStart] = useState("");
@@ -83,24 +86,31 @@ const CalendarLayout = () => {
       </CalendarWrapper>
       {isModal && (
         <ModalComponent>
-          <DatePicker
-            selected={dateStart}
-            selectsStart
-            onChange={(date) => setDateStart(date)}
-            startDate={dateStart}
-          />
-          <DatePicker
-            selected={dateEnd}
-            selectsEnd
-            onChange={(date) => setDateEnd(date)}
-            endDate={dateEnd}
-          />
+          <PickerWrapper>
+            <DatePicker
+              selected={dateStart}
+              selectsStart
+              onChange={(date) => setDateStart(date)}
+              startDate={dateStart}
+            />
+            ~
+            <DatePicker
+              selected={dateEnd}
+              selectsEnd
+              onChange={(date) => setDateEnd(date)}
+              endDate={dateEnd}
+            />
+          </PickerWrapper>
           <Input
             value={plan}
             onChange={onPlanChange}
             errorMessage={planErrorMessage}
             placeholder={INPUT_PLACEHOLDER.PLAN}
           />
+          <ButtomWrapper>
+            <Button onClick={handleOk}>등록</Button>
+            <Button onClick={handleCancel}>취소</Button>
+          </ButtomWrapper>
         </ModalComponent>
       )}
     </>
@@ -111,6 +121,15 @@ const CalendarWrapper = styled.div`
   width: 90%;
   height: 90%;
   margin: 1rem auto 0;
+`;
+
+const PickerWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+`;
+const ButtomWrapper = styled(Flex)`
+  padding-top: 2rem;
 `;
 
 export default CalendarLayout;
