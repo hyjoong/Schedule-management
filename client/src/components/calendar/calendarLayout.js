@@ -31,9 +31,8 @@ const CalendarLayout = () => {
     setIsModal(true);
   };
 
-  const events = useSelector((state) => state.ScheduleReducer);
+  const events = useSelector((state) => state.ScheduleReducer.scheduleData);
 
-  console.log(events);
   const handleOk = () => {
     setIsModal(false);
     events.push({

@@ -1,6 +1,7 @@
-const { LOAD_SCHEDULE, ADD_SCHEDULE } = require("../actionType");
+import { LOAD_SCHEDULE, ADD_SCHEDULE } from "../actionType";
 
 const initialState = {
+  count: 1,
   scheduleData: [
     {
       id: 1,
@@ -28,6 +29,7 @@ const ScheduleReducer = (state = initialState, action) => {
     case LOAD_SCHEDULE:
       return {
         ...state,
+        scheduleData: action.payload,
       };
     case ADD_SCHEDULE:
       return {

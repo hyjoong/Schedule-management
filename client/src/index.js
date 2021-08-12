@@ -7,9 +7,8 @@ import { theme } from "./styles/theme";
 import ConfigureStore from "./redux/store";
 
 import { Provider } from "react-redux";
-import { createStore } from "redux";
 
-const store = createStore(ConfigureStore);
+const store = ConfigureStore;
 
 ReactDOM.render(
   <React.StrictMode>
