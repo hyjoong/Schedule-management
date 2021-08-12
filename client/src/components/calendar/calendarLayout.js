@@ -13,25 +13,35 @@ import { validatePlan } from "../../validations/plan";
 import { INPUT_PLACEHOLDER } from "../../constants/placeholder";
 import Button from "../@commons/button";
 import { Flex } from "../shared/flexContainer";
+import { useDispatch, useSelector } from "react-redux";
 
 const CalendarLayout = () => {
   const [dateStart, setDateStart] = useState("");
   const [dateEnd, setDateEnd] = useState("");
   const [isModal, setIsModal] = useState(false);
-
   const {
     inputValue: plan,
     errorMessage: planErrorMessage,
     setValueOnChange: onPlanChange,
   } = useInput(validatePlan);
+  const dispatch = useDispatch();
 
-  console.log(plan);
+  //console.log(plan);
   const showModal = () => {
     setIsModal(true);
   };
 
+  const events = useSelector((state) => state.ScheduleReducer);
+
+  console.log(events);
   const handleOk = () => {
     setIsModal(false);
+    events.push({
+      id: 10,
+      title: plan,
+      start: dateStart,
+      end: dateEnd,
+    });
   };
 
   const handleCancel = () => {
@@ -52,26 +62,6 @@ const CalendarLayout = () => {
     openModal();
     setIsModal(true);
   };
-  const events = [
-    {
-      id: 1,
-      title: "study",
-      start: "2021-08-14",
-      end: "2021-08-14",
-    },
-    {
-      id: 2,
-      title: "event 2",
-      start: "2021-08-16",
-      end: "2021-08-16",
-    },
-    {
-      id: 3,
-      title: "event 32233",
-      start: "2021-08-17",
-      end: "2021-08-20",
-    },
-  ];
   return (
     <>
       <CalendarWrapper>
@@ -85,7 +75,7 @@ const CalendarLayout = () => {
         ></FullCalendar>
       </CalendarWrapper>
       {isModal && (
-        <ModalComponent>
+        <ModalComponent handleCancel={handleCancel}>
           <PickerWrapper>
             <DatePicker
               selected={dateStart}

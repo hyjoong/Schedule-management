@@ -7,7 +7,7 @@ import MenuList from "../components/menuList";
 import HistoryLayout from "../components/history/historyLayout";
 
 const Main = () => {
-  const [activeScreen, setActiveScreen] = useState(2);
+  const [activeScreen, setActiveScreen] = useState(3);
   const onChangeScreen = useCallback((num) => {
     setActiveScreen(num);
   }, []);

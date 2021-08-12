@@ -3,13 +3,13 @@ import styled from "styled-components";
 import Portal from "./portal";
 import { FlexJustifyCenter, FlexCenter, Flex } from "../shared/flexContainer";
 import Button from "./button";
-const ModalComponent = ({ children }) => {
+const ModalComponent = ({ children, handleCancel }) => {
   return (
     <Portal>
       <ModalWrapper>
         <Dimmed>
           <Container>
-            <Button>X </Button>
+            <Button onClick={handleCancel}>X </Button>
             <Content>{children} </Content>
           </Container>
         </Dimmed>
