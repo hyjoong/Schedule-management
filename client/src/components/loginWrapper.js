@@ -1,5 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { validateEmail } from "../validations/email";
 import { validatePassword } from "../validations/password";
 import { theme } from "../styles/theme";
@@ -10,16 +11,19 @@ import { PAGE_PATH } from "../constants/route";
 import Input from "./@commons/input";
 import { INPUT_PLACEHOLDER } from "../constants/placeholder";
 import useInput from "../hooks/useinput";
+import { LoginAction } from "../redux/action";
 
 const LoginWrapper = () => {
-  const { inputValue: email, setValueOnChange: onEmailChange } = useInput(
+  const dispatch = useDispatch();
+  const { inputValue: username, setValueOnChange: onEmailChange } = useInput(
     validateEmail
   );
   const { inputValue: password, setValueOnChange: onPasswordChange } = useInput(
     validatePassword
   );
-  const onLogin = async (event) => {
-    event.preventDefault();
+  const onLogin = async () => {
+    //  event.preventDefault();
+    dispatch(LoginAction({ username, password }));
   };
   const history = useHistory();
   const onMoveToSignUp = () => {
@@ -28,7 +32,7 @@ const LoginWrapper = () => {
 
   return (
     <FlexCenter>
-      <form onChange={onLogin}>
+      <form>
         <Block
           style={{
             marginTop: "2.5rem",
@@ -38,8 +42,8 @@ const LoginWrapper = () => {
           }}
         >
           <Input
-            value={email}
-            placeholder={INPUT_PLACEHOLDER.EMAIL}
+            value={username}
+            placeholder={INPUT_PLACEHOLDER.USERNAME}
             style={{ marginTop: "15px" }}
             onChange={onEmailChange}
             required
@@ -55,6 +59,7 @@ const LoginWrapper = () => {
           <Button
             backgroundColor={theme.navy}
             style={{ width: "100%", marginTop: "15px", color: "white" }}
+            onClick={onLogin}
           >
             로그인
           </Button>

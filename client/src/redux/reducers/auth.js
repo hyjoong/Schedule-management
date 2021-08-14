@@ -10,6 +10,7 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN:
+      console.log(action.payload);
       return {
         ...state,
         user: {
@@ -18,7 +19,6 @@ const authReducer = (state = initialState, action) => {
           user: action.payload,
         },
       };
-
     case LOGOUT:
       return {
         ...state,
