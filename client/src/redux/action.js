@@ -1,4 +1,4 @@
-import { LOAD_SCHEDULE, ADD_SCHEDULE } from "./actionType";
+import { LOAD_SCHEDULE, ADD_SCHEDULE, LOGIN, LOGOUT } from "./actionType";
 
 const LoadScheduleAction = (Schedule) => ({
   type: LOAD_SCHEDULE,
@@ -10,4 +10,14 @@ const AddSchedule = (Schedule) => ({
   playload: Schedule,
 });
 
-export { LoadScheduleAction, AddSchedule };
+const LoginAction = (data) => ({
+  type: LOGIN,
+  playload: data,
+});
+
+const LogoutAction = (data) => ({
+  type: LOGOUT,
+  payload: data,
+});
+
+export { LoadScheduleAction, AddSchedule, LoginAction, LogoutAction };

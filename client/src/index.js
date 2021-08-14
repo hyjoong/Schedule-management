@@ -8,8 +8,9 @@ import ConfigureStore from "./redux/store";
 
 import { Provider } from "react-redux";
 
-const store = ConfigureStore;
+const baseURL = process.env.REACT_APP_BASE_URL;
 
+const store = ConfigureStore;
 ReactDOM.render(
   <React.StrictMode>
     <GlobalStyle />
