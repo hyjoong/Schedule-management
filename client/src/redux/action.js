@@ -1,23 +1,30 @@
 import { LOAD_SCHEDULE, ADD_SCHEDULE, LOGIN, LOGOUT } from "./actionType";
 
-const LoadScheduleAction = (Schedule) => ({
-  type: LOAD_SCHEDULE,
-  payload: Schedule,
-});
+const LoadScheduleAction = (data) => {
+  return {
+    type: LOAD_SCHEDULE,
+    data,
+  };
+};
 
-const AddSchedule = (Schedule) => ({
-  type: ADD_SCHEDULE,
-  playload: Schedule,
-});
+const AddSchedule = (data) => {
+  return {
+    type: ADD_SCHEDULE,
+    data,
+  };
+};
 
-const LoginAction = (data) => ({
-  type: LOGIN,
-  playload: data,
-});
+const LoginAction = (data) => {
+  return {
+    type: LOGIN,
+    data,
+  };
+};
 
-const LogoutAction = (data) => ({
-  type: LOGOUT,
-  payload: data,
-});
+const LogoutAction = () => {
+  return {
+    type: LOGOUT,
+  };
+};
 
 export { LoadScheduleAction, AddSchedule, LoginAction, LogoutAction };

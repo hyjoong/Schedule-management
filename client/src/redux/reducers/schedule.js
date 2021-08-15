@@ -29,11 +29,12 @@ const ScheduleReducer = (state = initialState, action) => {
     case LOAD_SCHEDULE:
       return {
         ...state,
-        scheduleData: action.payload,
+        scheduleData: action.data,
       };
     case ADD_SCHEDULE:
       return {
         ...state,
+        scheduleData: [...state.scheduleData, action.data],
       };
     default:
       return state;

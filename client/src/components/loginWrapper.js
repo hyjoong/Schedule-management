@@ -22,8 +22,7 @@ const LoginWrapper = () => {
     validatePassword
   );
   const onLogin = async () => {
-    //  event.preventDefault();
-    dispatch(LoginAction({ username, password }));
+    dispatch(LoginAction(username));
   };
   const history = useHistory();
   const onMoveToSignUp = () => {

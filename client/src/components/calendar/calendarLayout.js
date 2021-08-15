@@ -14,33 +14,37 @@ import { INPUT_PLACEHOLDER } from "../../constants/placeholder";
 import Button from "../@commons/button";
 import { Flex } from "../shared/flexContainer";
 import { useDispatch, useSelector } from "react-redux";
+import { AddSchedule } from "../../redux/action";
 
 const CalendarLayout = () => {
-  const [dateStart, setDateStart] = useState("");
-  const [dateEnd, setDateEnd] = useState("");
-  const [isModal, setIsModal] = useState(false);
   const {
     inputValue: plan,
     errorMessage: planErrorMessage,
     setValueOnChange: onPlanChange,
   } = useInput(validatePlan);
+  const [text, setText] = useState();
+  const [dateStart, setDateStart] = useState("");
+  const [dateEnd, setDateEnd] = useState("");
+  const [isModal, setIsModal] = useState(false);
   const dispatch = useDispatch();
-
-  //console.log(plan);
   const showModal = () => {
     setIsModal(true);
   };
-
   const events = useSelector((state) => state.ScheduleReducer.scheduleData);
-
-  const handleOk = () => {
-    setIsModal(false);
-    events.push({
-      id: 10,
-      title: plan,
-      start: dateStart,
-      end: dateEnd,
-    });
+  console.log(events);
+  const handleOk = async () => {
+    if (planErrorMessage) {
+      alert("계획을 추가할 수 없습니다. ");
+      return;
+    }
+    try {
+      await dispatch(
+        AddSchedule({ id: 4, title: text, start: dateStart, end: dateEnd })
+      );
+      setIsModal(false);
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   const handleCancel = () => {
@@ -95,6 +99,7 @@ const CalendarLayout = () => {
             onChange={onPlanChange}
             errorMessage={planErrorMessage}
             placeholder={INPUT_PLACEHOLDER.PLAN}
+            required
           />
           <ButtomWrapper>
             <Button onClick={handleOk}>등록</Button>
