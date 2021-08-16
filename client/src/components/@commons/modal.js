@@ -39,7 +39,6 @@ const Dimmed = styled(FlexCenter)`
 const Container = styled(Flex)`
   flex-direction: column;
   width: 300px;
-  height: 300px;
   background-color: white;
   z-index: 2;
   border: 1px solid black;

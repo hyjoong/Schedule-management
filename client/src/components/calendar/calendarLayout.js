@@ -121,7 +121,7 @@ const PickerWrapper = styled.div`
   margin-top: 1rem;
 `;
 const ButtomWrapper = styled(Flex)`
-  padding-top: 2rem;
+  padding: 2rem 0;
 `;
 
 export default CalendarLayout;

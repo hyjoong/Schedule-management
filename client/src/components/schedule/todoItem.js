@@ -1,23 +1,15 @@
-import React, { useState } from "react";
 import styled from "styled-components";
 import { Flex, FlexBetween } from "../shared/flexContainer";
 import { Radio } from "antd";
 
-const TodoItem = () => {
-  const [mock, setMock] = useState([
-    {
-      id: 1,
-      title: "영화 보기",
-      date: "20210810",
-    },
-  ]);
+const TodoItem = ({ id, title, date }) => {
   return (
     <TodoWrapper>
       <TodoContainer>
         <TodoBox>
-          <Radio key={mock[0].id}></Radio>
-          <TodoText>{mock[0].title}</TodoText>
-          <TodoDate>{mock[0].date}</TodoDate>
+          <Radio key={id}></Radio>
+          <TodoText>{title}</TodoText>
+          <TodoDate>{date}</TodoDate>
         </TodoBox>
         <TodoButton>
           <TodoDelete>삭제</TodoDelete>
@@ -44,6 +36,7 @@ const TodoDelete = styled.div`
 
 const TodoText = styled.span`
   font-size: 1.1rem;
+  margin-right: 1rem;
 `;
 
 const TodoDate = styled.div`

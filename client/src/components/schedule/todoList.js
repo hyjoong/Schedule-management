@@ -1,11 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import TodoItem from "./todoItem";
+import { useSelector } from "react-redux";
 
 const TodoList = () => {
+  const events = useSelector((state) => state.ScheduleReducer.scheduleData);
+  console.log(events);
   return (
     <TodoListBlock>
-      <TodoItem />
+      {events &&
+        events.map((item, i) => (
+          <TodoItem key={i} id={i} title={item.title} date={item.dateValue} />
+        ))}
     </TodoListBlock>
   );
 };
