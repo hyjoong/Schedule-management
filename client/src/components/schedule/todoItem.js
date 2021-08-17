@@ -1,15 +1,19 @@
 import styled from "styled-components";
-import { Flex, FlexBetween } from "../shared/flexContainer";
+import { Flex, FlexBetween, FlexJustifyCenter } from "../shared/flexContainer";
 import { Radio } from "antd";
 
-const TodoItem = ({ id, title, date }) => {
+const TodoItem = ({ id, title, end }) => {
+  let now = new Date().getTime();
+  let endDay = new Date(end).getTime();
+  let day = endDay - now;
+  let dday = Math.round(day / (1000 * 60 * 60 * 24));
   return (
     <TodoWrapper>
       <TodoContainer>
         <TodoBox>
           <Radio key={id}></Radio>
           <TodoText>{title}</TodoText>
-          <TodoDate>{date}</TodoDate>
+          <TodoDate>D-{dday}</TodoDate>
         </TodoBox>
         <TodoButton>
           <TodoDelete>삭제</TodoDelete>
@@ -39,8 +43,9 @@ const TodoText = styled.span`
   margin-right: 1rem;
 `;
 
-const TodoDate = styled.div`
+const TodoDate = styled(FlexJustifyCenter)`
   font-size: 0.8rem;
+  color: red;
 `;
 
 const TodoButton = styled.div``;

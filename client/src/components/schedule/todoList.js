@@ -5,12 +5,12 @@ import { useSelector } from "react-redux";
 
 const TodoList = () => {
   const events = useSelector((state) => state.ScheduleReducer.scheduleData);
-  console.log(events);
+
   return (
     <TodoListBlock>
       {events &&
         events.map((item, i) => (
-          <TodoItem key={i} id={i} title={item.title} date={item.dateValue} />
+          <TodoItem key={i} id={i} title={item.title} end={item.end} />
         ))}
     </TodoListBlock>
   );

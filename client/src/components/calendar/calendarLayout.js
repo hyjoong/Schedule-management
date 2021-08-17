@@ -56,8 +56,6 @@ const CalendarLayout = () => {
 
   const handleDate = useCallback((day) => {
     setDateValue(day.dateStr);
-    console.log(day);
-    console.log(day.date);
     setDateStart(day.date);
     setDateEnd(day.date);
     setIsModal(true);
