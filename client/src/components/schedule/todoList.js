@@ -10,7 +10,7 @@ const TodoList = () => {
     <TodoListBlock>
       {events &&
         events.map((item, i) => (
-          <TodoItem key={i} id={i} title={item.title} end={item.end} />
+          <TodoItem key={i} id={item.id} title={item.title} end={item.end} />
         ))}
     </TodoListBlock>
   );

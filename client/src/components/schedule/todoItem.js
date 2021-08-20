@@ -1,8 +1,11 @@
 import styled from "styled-components";
 import { Flex, FlexBetween, FlexJustifyCenter } from "../shared/flexContainer";
 import { Radio } from "antd";
+import { useDispatch } from "react-redux";
+import { DeleteSchedule } from "../../redux/action";
 
 const TodoItem = ({ id, title, end }) => {
+  const dispatch = useDispatch();
   let now = new Date().getTime();
   let endDay = new Date(end).getTime();
   let day = endDay - now;
@@ -16,7 +19,9 @@ const TodoItem = ({ id, title, end }) => {
           <TodoDate>D-{dday}</TodoDate>
         </TodoBox>
         <TodoButton>
-          <TodoDelete>삭제</TodoDelete>
+          <TodoDelete onClick={() => dispatch(DeleteSchedule(id))}>
+            삭제
+          </TodoDelete>
         </TodoButton>
       </TodoContainer>
     </TodoWrapper>

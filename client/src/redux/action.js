@@ -1,4 +1,10 @@
-import { LOAD_SCHEDULE, ADD_SCHEDULE, LOGIN, LOGOUT } from "./actionType";
+import {
+  LOAD_SCHEDULE,
+  ADD_SCHEDULE,
+  LOGIN,
+  LOGOUT,
+  DELETE_SCHEDULE,
+} from "./actionType";
 
 const LoadScheduleAction = (data) => {
   return {
@@ -10,6 +16,13 @@ const LoadScheduleAction = (data) => {
 const AddSchedule = (data) => {
   return {
     type: ADD_SCHEDULE,
+    data,
+  };
+};
+
+const DeleteSchedule = (data) => {
+  return {
+    type: DELETE_SCHEDULE,
     data,
   };
 };
@@ -27,4 +40,10 @@ const LogoutAction = () => {
   };
 };
 
-export { LoadScheduleAction, AddSchedule, LoginAction, LogoutAction };
+export {
+  LoadScheduleAction,
+  AddSchedule,
+  LoginAction,
+  LogoutAction,
+  DeleteSchedule,
+};
