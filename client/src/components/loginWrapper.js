@@ -24,10 +24,10 @@ const LoginWrapper = () => {
   const onLogin = async () => {
     dispatch(LoginAction(username));
   };
-  const history = useHistory();
-  const onMoveToSignUp = () => {
-    history.push(PAGE_PATH.SIGN_UP);
-  };
+  // const history = useHistory();
+  // const onMoveToSignUp = () => {
+  //   history.push(PAGE_PATH.SIGN_UP);
+  // };
 
   return (
     <FlexCenter>
@@ -65,7 +65,7 @@ const LoginWrapper = () => {
           <Button
             backgroundColor={theme.lightBlue}
             style={{ width: "100%", marginTop: "15px", color: "white" }}
-            onClick={onMoveToSignUp}
+            //     onClick={onMoveToSignUp}
           >
             회원가입
           </Button>

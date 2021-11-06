@@ -7,16 +7,18 @@ import { theme } from "./styles/theme";
 import ConfigureStore from "./redux/store";
 
 import { Provider } from "react-redux";
-
-const baseURL = process.env.REACT_APP_BASE_URL;
+import { BrowserRouter } from "react-router-dom";
 
 const store = ConfigureStore;
+
 ReactDOM.render(
   <React.StrictMode>
     <GlobalStyle />
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </ThemeProvider>
     </Provider>
   </React.StrictMode>,
