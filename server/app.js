@@ -25,13 +25,8 @@ app.use((error, req, res, next) => {
   res.sendStatus(500);
 });
 
-console.log("hi");
 connectDB()
   .then((db) => {
-    console.log(config.host.port);
-    console.log("연결", db);
     app.listen(config.host.port);
   })
   .catch("error", console.error);
-
-console.log("end");
