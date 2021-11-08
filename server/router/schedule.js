@@ -1,30 +1,6 @@
 import express from "express";
 import "express-async-errors";
 
-let scheduleData = [
-  {
-    id: 0,
-    title: "study",
-    dateValue: "2021-08-14",
-    start: "2021-08-14",
-    end: "2021-08-14",
-  },
-  {
-    id: 1,
-    title: "event 2",
-    dateValue: "2021-08-16",
-    start: "2021-08-16",
-    end: "2021-08-16",
-  },
-  {
-    id: 2,
-    title: "event 32233",
-    dateValue: "2021-08-17",
-    start: "2021-08-17",
-    end: "2021-08-20",
-  },
-];
-
 const router = express.Router();
 
 router.get("/", (req, res, next) => {
