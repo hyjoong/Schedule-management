@@ -1,5 +1,5 @@
 import MongoDb from "mongodb";
-import { getSchedules } from "../database/data.js";
+import { getSchedules } from "../database/database.js";
 import * as userRepository from "./auth.js";
 
 const ObjectId = MongoDb.ObjectId;
