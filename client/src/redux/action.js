@@ -4,6 +4,9 @@ import {
   LOGIN,
   LOGOUT,
   DELETE_SCHEDULE,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  LOGOUT_FAILURE,
 } from "./actionType";
 
 const LoadScheduleAction = (data) => {
@@ -34,9 +37,37 @@ const LoginAction = (data) => {
   };
 };
 
+const LoginSuccessAction = (data) => {
+  return {
+    type: LOGIN_SUCCESS,
+    data,
+  };
+};
+
+const LoginFailAction = (data) => {
+  return {
+    type: LOGIN_FAILURE,
+    data,
+  };
+};
+
 const LogoutAction = () => {
   return {
     type: LOGOUT,
+  };
+};
+
+const LogoutSuccessAction = (data) => {
+  return {
+    type: LOGIN_SUCCESS,
+    data,
+  };
+};
+
+const LogoutFailAction = (data) => {
+  return {
+    type: LOGOUT_FAILURE,
+    data,
   };
 };
 
@@ -46,4 +77,8 @@ export {
   LoginAction,
   LogoutAction,
   DeleteSchedule,
+  LoginSuccessAction,
+  LoginFailAction,
+  LogoutSuccessAction,
+  LogoutFailAction,
 };
