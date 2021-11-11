@@ -1,19 +1,26 @@
-let users = [
-  {
-    id: "1",
-    email: "hyunjoong12@naver.com",
-    password: "$2b$12$G9xf8SFq3oTEgdj7ozHQ/uhDOyeQcUEDU8tnOcvpvApuadr3nE5Vm",
-    username: "hyunjoong",
-    nickname: "hyunla",
-  },
-];
+import MongoDb from "mongodb";
+import { getUsers } from "../database/database.js";
 
-export async function findByUsername(username) {
-  return users.find((user) => user.username === username);
-}
+const ObjectId = MongoDb.ObjectId;
+
+export const findUsername = async (username) => {
+  return getUsers()
+    .findOne({ username: username }) //
+    .then(mapOptionalUser);
+};
+
+export const findById = async (id) => {
+  return getUsers()
+    .findOne({ _id: new ObjectId(id) }) // mongoDb에 _id로 저장이 되어있어서 이렇게 해야함
+    .then(mapOptionalUser);
+};
 
 export async function createUser(user) {
-  const created = { ...user, id: Date.now().toString() };
-  users.push(created);
-  return created.id;
+  return getUsers()
+    .insertOne(user)
+    .then((data) => data.insertedId.toString());
 }
+
+export const mapOptionalUser = (user) => {
+  return user ? { ...user, id: user._id.toString() } : user;
+};
