@@ -1,0 +1,13 @@
+@import "react-datepicker/dist/react-datepicker.css";
+
+.react-datepicker-wrapper {
+  margin-bottom: 3rem;
+  width: 80px;
+}
+
+.react-datepicker__input-container input {
+  border: none;
+  border-bottom: 1px solid #dcdcdc;
+  padding-left: 1rem;
+  width: 100%;
+}

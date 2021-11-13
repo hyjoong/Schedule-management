@@ -1,0 +1,31 @@
+// auth
+export const LOGIN = "LOGIN";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAILURE = "LOGIN_FAILURE";
+
+export const LOGOUT = "LOGOUT";
+export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
+export const LOGOUT_FAILURE = "LOGOUT_FAILURE";
+
+// plan
+export const LOAD_PLAN = "LOAD_PLAN";
+export const LOAD_PLAN_SUCCESS = "LOAD_PLAN_SUCCESS";
+export const LOAD_PLAN_FAILURE = "LOAD_PLAN_FAILURE";
+
+export const ADD_PLAN = "ADD_PLAN";
+export const ADD_PLAN_FAILURE = "ADD_PLAN_FAILURE";
+export const ADD_PLAN_SUCCESS = "ADD_PLAN_SUCCESS";
+
+export const DONE_PLAN = "DONE_PLAN";
+export const DONE_PLAN_SUCCESS = "DONE_PLAN_SUCCESS";
+export const DONE_PLAN_FAILURE = "DONE_PLAN_FAILURE";
+
+export const UPDATE_PLAN = "UPDATE_PLAN";
+export const UPDATE_PLAN_SUCCESS = "UPDATE_PLAN_SUCCESS";
+export const UPDATE_PLAN_FAIILURE = "UPDATE_PLAN_FAIILURE";
+
+export const DELETE_PLAN = "DELETE_PLAN";
+export const DELETE_PLAN_SUCCESS = "DELETE_PLAN_SUCCESS";
+export const DELETE_PLAN_FAILURE = "DELETE_PLAN_FAILURE";
+
+// post
