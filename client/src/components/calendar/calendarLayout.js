@@ -1,22 +1,29 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import DatePicker from "react-datepicker";
 import Input from "../@commons/input";
 import ModalComponent from "../@commons/modal";
-import DatePicker from "react-datepicker";
 import "../../styles/datepicker.css";
 import useInput from "../../hooks/useinput";
 import { validatePlan } from "../../validations/plan";
 import { INPUT_PLACEHOLDER } from "../../constants/placeholder";
 import Button from "../@commons/button";
 import { Flex } from "../shared/flexContainer";
-import { useDispatch, useSelector } from "react-redux";
-import { AddSchedule } from "../../redux/action";
+import { AddPlan } from "../../redux/action";
 import PlanText from "./planText";
+import { LOAD_PLAN } from "../../redux/actionType";
 
 const CalendarLayout = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch({
+      type: LOAD_PLAN,
+    });
+  }, [dispatch]);
   const {
     inputValue: plan,
     errorMessage: planErrorMessage,
@@ -26,7 +33,6 @@ const CalendarLayout = () => {
   const [dateEnd, setDateEnd] = useState("");
   const [isModal, setIsModal] = useState(false);
   const [dateValue, setDateValue] = useState("");
-  const dispatch = useDispatch();
 
   const events = useSelector((state) => state.ScheduleReducer.scheduleData);
   const handleOk = async () => {
@@ -36,7 +42,7 @@ const CalendarLayout = () => {
     }
     try {
       await dispatch(
-        AddSchedule({
+        AddPlan({
           id: Math.random() * 10,
           title: plan,
           dateValue: dateValue,
@@ -45,6 +51,7 @@ const CalendarLayout = () => {
         })
       );
       setIsModal(false);
+      setDateValue("");
     } catch (error) {
       alert(error.message);
     }

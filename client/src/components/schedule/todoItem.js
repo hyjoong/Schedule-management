@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { Flex, FlexBetween, FlexJustifyCenter } from "../shared/flexContainer";
 import { Radio } from "antd";
 import { useDispatch } from "react-redux";
-import { DeleteSchedule } from "../../redux/action";
+import { useCallback } from "react";
+import { DELETE_PLAN } from "../../redux/actionType";
 
 const TodoItem = ({ id, title, end }) => {
   const dispatch = useDispatch();
@@ -10,6 +11,17 @@ const TodoItem = ({ id, title, end }) => {
   let endDay = new Date(end).getTime();
   let day = endDay - now;
   let dday = Math.round(day / (1000 * 60 * 60 * 24));
+
+  const handleDelete = useCallback(
+    (id) => {
+      dispatch({
+        type: DELETE_PLAN,
+        id,
+      });
+    },
+    [dispatch]
+  );
+
   return (
     <TodoWrapper>
       <TodoContainer>
@@ -19,9 +31,7 @@ const TodoItem = ({ id, title, end }) => {
           <TodoDate>D-{dday}</TodoDate>
         </TodoBox>
         <TodoButton>
-          <TodoDelete onClick={() => dispatch(DeleteSchedule(id))}>
-            삭제
-          </TodoDelete>
+          <TodoDelete onClick={() => handleDelete(id)}>삭제</TodoDelete>
         </TodoButton>
       </TodoContainer>
     </TodoWrapper>
@@ -41,6 +51,7 @@ const TodoBox = styled(Flex)`
 const TodoDelete = styled.div`
   color: ${(props) => props.theme.red};
   font-weight: 600;
+  cursor: pointer;
 `;
 
 const TodoText = styled.span`
