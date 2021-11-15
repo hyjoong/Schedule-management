@@ -1,26 +1,22 @@
-import MongoDb from "mongodb";
-import { getUsers } from "../database/database.js";
+import Mongoose from "mongoose";
+import { useVirtualId } from "../database/database.js";
 
-const ObjectId = MongoDb.ObjectId;
+const userSchema = new Mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true },
+  password: { type: String, required: true },
+});
 
-export const findUsername = async (username) => {
-  return getUsers()
-    .findOne({ username: username }) //
-    .then(mapOptionalUser);
-};
+useVirtualId(userSchema); // 가상의 id추가
+const User = Mongoose.model("User", userSchema); // User라는 collection을 userSchema와 연결
 
+export async function findByEmail(email) {
+  return User.findOne({ email });
+}
 export const findById = async (id) => {
-  return getUsers()
-    .findOne({ _id: new ObjectId(id) }) // mongoDb에 _id로 저장이 되어있어서 이렇게 해야함
-    .then(mapOptionalUser);
+  return User.findById(id);
 };
 
 export async function createUser(user) {
-  return getUsers()
-    .insertOne(user)
-    .then((data) => data.insertedId.toString());
+  return new User(user).save().then((data) => data.id);
 }
-
-export const mapOptionalUser = (user) => {
-  return user ? { ...user, id: user._id.toString() } : user;
-};
