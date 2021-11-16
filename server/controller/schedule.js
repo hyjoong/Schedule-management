@@ -1,9 +1,9 @@
 import * as scheduleRepository from "../data/schedule.js";
 
 export const getSchedules = async (req, res) => {
-  const username = req.query.username;
-  const data = await (username
-    ? scheduleRepository.getAllByUsername(username)
+  const name = req.query.name;
+  const data = await (name
+    ? scheduleRepository.getAllByUsername(name)
     : scheduleRepository.getAll());
   res.status(200).json(data);
 };
@@ -14,11 +14,11 @@ export const getSchedule = async (req, res, next) => {
   if (schedule) {
     res.status(200).json(schedule);
   } else {
-    res.status(404).json({ message: `Schedule id(${id}) not found` });
+    res.status(404).json({ message: `Schedule id(${id}) not found` });  
   }
 };
 
-export const createSchedulwe = async (req, res, next) => {
+export const createSchedule = async (req, res, next) => {
   const { text } = req.body;
   const schedule = await scheduleRepository.create(text, req.userId);
   res.status(201).json(schedule);
