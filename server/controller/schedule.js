@@ -14,20 +14,24 @@ export const getSchedule = async (req, res, next) => {
   if (schedule) {
     res.status(200).json(schedule);
   } else {
-    res.status(404).json({ message: `Schedule id(${id}) not found` });  
+    res.status(404).json({ message: `Schedule id(${id}) not found` });
   }
 };
 
 export const createSchedule = async (req, res, next) => {
-  const { text } = req.body;
-  const schedule = await scheduleRepository.create(text, req.userId);
+  const { text, start, end } = req.body;
+  const schedule = await scheduleRepository.create(
+    text,
+    start,
+    end,
+    req.userId
+  );
   res.status(201).json(schedule);
 };
 
-// date값도 받아야함 나중에 수정
 export const updateSchedule = async (req, res, next) => {
   const id = req.params.id;
-  const text = req.body.text;
+  const { text, start, end } = req.body;
   const schedule = await scheduleRepository.getById(id);
   if (!schedule) {
     return res.status(404).json({ message: `Schedule not found: ${id}` });
@@ -35,7 +39,7 @@ export const updateSchedule = async (req, res, next) => {
   if (schedule.userId !== req.userId) {
     return res.sendStatus(403);
   }
-  const updated = await scheduleRepository.update(id, text);
+  const updated = await scheduleRepository.update(id, text, start, end);
   res.status(200).json(updated);
 };
 

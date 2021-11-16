@@ -1,33 +1,21 @@
-### Auth
+#### Schedule management Backend
 
-```
-User Schema
+## Schema
+
+#### Plan
+
 {
-    username: string,
-    password: string,
-    email:string,
-    nickname: string
+text : String,
+userId : String
+name : String
+start : String
+end : String
 }
-```
 
-### signup
+#### User
 
-#### Request
-
-```
 {
-    username,
-    password,
-    email,
-    nickname
+name : String
+email : String
+password : String
 }
-```
-
-#### Response
-
-```
-{
-    token,
-    username
-}
-```

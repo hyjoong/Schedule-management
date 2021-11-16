@@ -6,8 +6,10 @@ import * as userRepository from "./auth.js";
 const ScheduleSchema = new Mongoose.Schema(
   {
     text: { type: String, required: true },
-    name: { type: String, required: true },
     userId: { type: String, required: true },
+    name: { type: String, required: true },
+    start: { type: String, required: true },
+    end: { type: String, required: true },
   },
   { timestamp: true } // 자동으로 created, update 설정
 );
@@ -27,21 +29,25 @@ export const getById = async (id) => {
   return Plan.findById(id);
 };
 
-export const create = async (text, userId) => {
+export const create = async (text, start, end, userId) => {
   return userRepository.findById(userId).then((user) =>
     new Plan({
       text,
       userId,
       name: user.name,
+      start,
+      end,
     }).save()
   );
 };
 
-export const update = async (id, text) => {
+export const update = async (id, text, start, end) => {
   return Plan.findByIdAndUpdate(
     id,
     {
       text,
+      start,
+      end,
     },
     { returnOriginal: false }
   );

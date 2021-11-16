@@ -21,7 +21,7 @@ const validateSchedule = [
 router.get("/", isAuth, scheduleController.getSchedules);
 
 //GET /schedules/:id
-router.get("/", isAuth, scheduleController.getSchedule);
+router.get("/:id", isAuth, scheduleController.getSchedule);
 
 // POST /schedule
 router.post("/", isAuth, validateSchedule, scheduleController.createSchedule);
