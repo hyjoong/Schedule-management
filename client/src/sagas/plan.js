@@ -18,23 +18,23 @@ import {
 } from "../redux/actionType";
 
 function loadPlanAPI() {
-  return axios.get("/plan/load");
+  return axios.get("/schedules");
 }
 
 function addPlanAPI(data) {
-  return axios.post("/plan", data);
+  return axios.post("/schedules", data);
 }
 
 function updatePlanAPI(data) {
-  return axios.patch(`/plan/${data.id}`, data);
+  return axios.patch(`/schedules/${data.id}`, data);
 }
 
 function deletePlanAPI(data) {
-  return axios.delete(`/plan/${data}`);
+  return axios.delete(`/schedules/${data}`);
 }
 
 function donePlanAPI(data) {
-  return axios.patch(`/plan/done/${data}`, data);
+  return axios.patch(`/schedules/done/${data}`, data);
 }
 
 function* addPlan(action) {

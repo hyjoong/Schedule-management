@@ -43,9 +43,7 @@ const CalendarLayout = () => {
     try {
       await dispatch(
         AddPlan({
-          id: Math.random() * 10,
-          title: plan,
-          dateValue: dateValue,
+          text: plan,
           start: dateStart,
           end: dateEnd,
         })

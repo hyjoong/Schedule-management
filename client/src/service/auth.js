@@ -1,12 +1,11 @@
 import React from "react";
 
 const Auth = ({ http, tokenStorage }) => {
-  const signup = () => async (username, nickname, email, password) => {
+  const signup = () => async (name, email, password) => {
     const data = await http.fetch("/auth/signup", {
       method: "POST",
       body: JSON.stringify({
-        username,
-        nickname,
+        name,
         email,
         password,
       }),
@@ -15,11 +14,11 @@ const Auth = ({ http, tokenStorage }) => {
     return data;
   };
 
-  const login = async (username, nickname, email, password) => {
+  const login = async (name, email, password) => {
     const data = await http.fetch("/auth/login", {
       method: "POST",
       body: JSON.stringify({
-        username,
+        name,
         password,
       }),
     });
