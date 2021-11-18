@@ -15,10 +15,11 @@ import {
   DONE_PLAN,
   LOAD_PLAN_FAILURE,
   LOAD_PLAN,
+  LOAD_PLAN_SUCCESS,
 } from "../redux/actionType";
 
 function loadPlanAPI() {
-  return axios.get("/schedules");
+  return axios.get("http://localhost:8080/schedules");
 }
 
 function addPlanAPI(data) {
@@ -99,9 +100,9 @@ function* donePlan(action) {
 
 function* loadPlan(action) {
   try {
-    const result = yield call(loadPlanAPI, action.data);
+    const result = yield call(loadPlanAPI);
     yield put({
-      type: LOAD_PLAN_FAILURE,
+      type: LOAD_PLAN_SUCCESS,
       data: result.data,
     });
   } catch (err) {

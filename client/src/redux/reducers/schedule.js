@@ -16,7 +16,6 @@ import {
 } from "../actionType";
 
 const initialState = {
-  count: 1,
   scheduleData: [
     {
       id: 0,

@@ -24,26 +24,29 @@ const CalendarLayout = () => {
       type: LOAD_PLAN,
     });
   }, [dispatch]);
+
   const {
-    inputValue: plan,
+    inputValue: text,
     errorMessage: planErrorMessage,
     setValueOnChange: onPlanChange,
   } = useInput(validatePlan);
+
   const [dateStart, setDateStart] = useState("");
   const [dateEnd, setDateEnd] = useState("");
   const [isModal, setIsModal] = useState(false);
   const [dateValue, setDateValue] = useState("");
 
   const events = useSelector((state) => state.ScheduleReducer.scheduleData);
-  const handleOk = async () => {
+
+  const handleOk = useCallback(() => {
     if (planErrorMessage) {
       alert("계획을 추가할 수 없습니다. ");
       return;
     }
     try {
-      await dispatch(
+      dispatch(
         AddPlan({
-          text: plan,
+          text,
           start: dateStart,
           end: dateEnd,
         })
@@ -53,7 +56,7 @@ const CalendarLayout = () => {
     } catch (error) {
       alert(error.message);
     }
-  };
+  }, [text, dateStart, dateEnd]);
 
   const handleCancel = () => {
     setIsModal(false);
@@ -96,7 +99,7 @@ const CalendarLayout = () => {
             />
           </PickerWrapper>
           <Input
-            value={plan}
+            value={text}
             onChange={onPlanChange}
             errorMessage={planErrorMessage}
             placeholder={INPUT_PLACEHOLDER.PLAN}
