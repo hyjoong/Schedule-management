@@ -29,6 +29,6 @@ app.use((error, req, res, next) => {
 
 connectDB()
   .then((db) => {
-    app.listen(config.host.port);
+    app.listen(config.host.port || 8080);
   })
   .catch("error", console.error);
