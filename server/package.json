@@ -4,6 +4,10 @@
   "description": "schedule - management",
   "main": "app.js",
   "type": "module",
+  "engine": {
+    "node": "14.18.0",
+    "yarn": "1.22.5"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app"
