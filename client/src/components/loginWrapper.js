@@ -15,15 +15,21 @@ import { LoginAction } from "../redux/action";
 
 const LoginWrapper = () => {
   const dispatch = useDispatch();
-  const { inputValue: username, setValueOnChange: onEmailChange } = useInput(
+  const { inputValue: name, setValueOnChange: onEmailChange } = useInput(
     validateEmail
   );
   const { inputValue: password, setValueOnChange: onPasswordChange } = useInput(
     validatePassword
   );
   const onLogin = async () => {
-    dispatch(LoginAction(username));
+    dispatch(
+      LoginAction({
+        name,
+        password,
+      })
+    );
   };
+
   // const history = useHistory();
   // const onMoveToSignUp = () => {
   //   history.push(PAGE_PATH.SIGN_UP);
@@ -41,7 +47,7 @@ const LoginWrapper = () => {
           }}
         >
           <Input
-            value={username}
+            value={name}
             placeholder={INPUT_PLACEHOLDER.USERNAME}
             style={{ marginTop: "15px" }}
             onChange={onEmailChange}

@@ -15,7 +15,12 @@ export const requestAuth = {
   },
 
   signup: async (email, password) => {
-    const response = await axios.post("/signup", { email, password  });
+    const response = await axios.post("/signup", { email, password });
     return response;
   },
+};
+
+export const postLogin = async () => {
+  const { data } = await axios("http://localhost8080/auth/login");
+  return data;
 };

@@ -9,9 +9,16 @@ import {
   LOGOUT,
 } from "../redux/actionType";
 
-function loginAPI(data) {
-  return axios.post("/user/login", data);
-}
+const loginAPI = async (data) => {
+  const response = await axios.post("/auth/login", {
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+    data,
+  });
+  return response;
+};
 
 function logoutAPI(data) {
   return axios.post("/user/logout", data);
