@@ -7,27 +7,30 @@ import { theme } from "../styles/theme";
 import { FlexCenter } from "./shared/flexContainer";
 import Block from "./@commons/block";
 import Button from "./@commons/button";
-import { PAGE_PATH } from "../constants/route";
 import Input from "./@commons/input";
 import { INPUT_PLACEHOLDER } from "../constants/placeholder";
 import useInput from "../hooks/useinput";
 import { LoginAction } from "../redux/action";
 
-const LoginWrapper = () => {
-  const dispatch = useDispatch();
-  const { inputValue: name, setValueOnChange: onEmailChange } = useInput(
+const LoginWrapper = ({ onSignUp, goLogin }) => {
+  // const dispatch = useDispatch();
+  const { inputValue: email, setValueOnChange: onEmailChange } = useInput(
     validateEmail
   );
   const { inputValue: password, setValueOnChange: onPasswordChange } = useInput(
     validatePassword
   );
-  const onLogin = async () => {
-    dispatch(
-      LoginAction({
-        name,
-        password,
-      })
-    );
+  // const onLogin = async () => {
+  //   dispatch(
+  //     LoginAction({
+  //       email,
+  //       password,
+  //     })
+  //   );
+  // };
+
+  const handleLogin = () => {
+    goLogin(email, password).catch("error");
   };
 
   // const history = useHistory();
@@ -47,7 +50,7 @@ const LoginWrapper = () => {
           }}
         >
           <Input
-            value={name}
+            value={email}
             placeholder={INPUT_PLACEHOLDER.USERNAME}
             style={{ marginTop: "15px" }}
             onChange={onEmailChange}
@@ -62,9 +65,10 @@ const LoginWrapper = () => {
             required
           />
           <Button
+            type="submit"
             backgroundColor={theme.navy}
             style={{ width: "100%", marginTop: "15px", color: "white" }}
-            onClick={onLogin}
+            onClick={handleLogin}
           >
             로그인
           </Button>

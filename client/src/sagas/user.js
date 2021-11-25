@@ -9,15 +9,12 @@ import {
   LOGOUT,
 } from "../redux/actionType";
 
+const PUBLIC_API = process.env.REACT_APP_BASE_URL;
+
 const loginAPI = async (data) => {
-  const response = await axios.post("/auth/login", {
-    headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-    },
+  return axios.post(`${PUBLIC_API}/auth/login`, {
     data,
   });
-  return response;
 };
 
 function logoutAPI(data) {

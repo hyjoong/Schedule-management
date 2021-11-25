@@ -1,42 +1,40 @@
-import React from "react";
+export default class AuthService {
+  constructor(http, tokenStorage) {
+    this.http = http;
+    this.tokenStorage = tokenStorage;
+  }
 
-const Auth = ({ http, tokenStorage }) => {
-  const signup = () => async (name, email, password) => {
-    const data = await http.fetch("/auth/signup", {
+  async signup(password, name, email) {
+    const data = await this.http.fetch("/auth/signup", {
       method: "POST",
       body: JSON.stringify({
+        password,
         name,
         email,
-        password,
       }),
     });
-    tokenStorage.saveToken(data.token);
+    this.tokenStorage.saveToken(data.token);
     return data;
-  };
+  }
 
-  const login = async (name, email, password) => {
-    const data = await http.fetch("/auth/login", {
+  async login(email, password) {
+    const data = await this.http.fetch("/auth/login", {
       method: "POST",
-      body: JSON.stringify({
-        name,
-        password,
-      }),
+      body: JSON.stringify({ email, password }),
     });
-    tokenStorage.saveToken(data.token);
+    this.tokenStorage.saveToken(data.token);
     return data;
-  };
+  }
 
-  const me = async () => {
-    const token = tokenStorage.getToken();
-    return http.fetch("/auth/me", {
+  async me() {
+    const token = this.tokenStorage.getToken();
+    return this.http.fetch("/auth/me", {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
-  };
+  }
 
-  const logout = async () => {
-    tokenStorage.clearToken();
-  };
-};
-
-export default Auth;
+  async logout() {
+    this.tokenStorage.clearToken();
+  }
+}
