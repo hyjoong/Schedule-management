@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { validateEmail } from "../validations/email";
 import { validatePassword } from "../validations/password";

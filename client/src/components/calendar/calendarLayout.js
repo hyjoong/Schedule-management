@@ -46,19 +46,15 @@ const CalendarLayout = () =>
         alert("계획을 추가할 수 없습니다. ");
         return;
       }
-      try {
-        dispatch(
-          AddPlan({
-            text,
-            start: dateStart,
-            end: dateEnd,
-          })
-        );
-        setIsModal(false);
-        setDateValue("");
-      } catch (error) {
-        alert(error.message);
-      }
+      dispatch(
+        AddPlan({
+          text,
+          start: dateStart,
+          end: dateEnd,
+        })
+      );
+      setIsModal(false);
+      setDateValue("");
     }, [text, dateStart, dateEnd]);
 
     const handleCancel = () => {

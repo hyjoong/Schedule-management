@@ -7,6 +7,9 @@ import {
   LOGOUT_SUCCESS,
   LOGOUT_FAILURE,
   LOGOUT,
+  SIGNUP_SUCCESS,
+  SIGNUP_FAILURE,
+  SIGNUP,
 } from "../redux/actionType";
 import { saveToken, clearToken, getToken } from "../utils/token";
 import { req } from "../apis/request";
@@ -27,6 +30,19 @@ const loginAPI = async (data) => {
 
 const logoutAPI = async (data) => {
   clearToken();
+};
+
+const signUpAPI = async (data) => {
+  const { email, name, password } = data;
+  const res = await req("/auth/signup", {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify({ email, name, password }),
+  });
+  console.log(res);
+  return res;
 };
 
 // 추후에 구현
@@ -66,6 +82,20 @@ function* logout(action) {
   }
 }
 
+function* signUp(action) {
+  try {
+    yield call(signUpAPI, action.data);
+    yield put({
+      type: SIGNUP_SUCCESS,
+    });
+  } catch (err) {
+    yield put({
+      type: SIGNUP_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
 function* watchLogin() {
   yield takeLatest(LOGIN, login); // takeLatest가 LOGIN 액션이 dispatch되길 기다려서 dispatch될 때 login 제너레이터 호출
 }
@@ -73,7 +103,10 @@ function* watchLogin() {
 function* watchLogout() {
   yield takeLatest(LOGOUT, logout);
 }
+function* watchSignUp() {
+  yield takeLatest(SIGNUP, signUp);
+}
 
 export default function* userSaga() {
-  yield all([fork(watchLogin), fork(watchLogout)]);
+  yield all([fork(watchLogin), fork(watchLogout), fork(watchSignUp)]);
 }

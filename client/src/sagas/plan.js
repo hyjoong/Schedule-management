@@ -18,16 +18,18 @@ import {
   LOAD_PLAN_SUCCESS,
 } from "../redux/actionType";
 
-function loadPlanAPI() {
-  return axios.get("http://localhost:8080/schedules");
+const PUBLIC_API = process.env.REACT_APP_BASE_URL;
+
+function loadPlanAPI(name) {
+  return axios.get(`${PUBLIC_API}/schedules/${name}`);
 }
 
 function addPlanAPI(data) {
-  return axios.post("/schedules", data);
+  return axios.post(`${PUBLIC_API}/schedules`, data);
 }
 
 function updatePlanAPI(data) {
-  return axios.patch(`/schedules/${data.id}`, data);
+  return axios.patch(`${PUBLIC_API}/schedules/${data.id}`, data);
 }
 
 function deletePlanAPI(data) {

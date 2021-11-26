@@ -1,4 +1,4 @@
-import { ADD_PLAN, LOGIN, LOGOUT } from "./actionType";
+import { ADD_PLAN, LOGIN, LOGOUT, SIGNUP } from "./actionType";
 
 const LoginAction = (data) => {
   return {
@@ -20,4 +20,11 @@ const AddPlan = (data) => {
   };
 };
 
-export { LoginAction, LogoutAction, AddPlan };
+const SignupAction = (data) => {
+  return {
+    type: SIGNUP,
+    data,
+  };
+};
+
+export { LoginAction, LogoutAction, AddPlan, SignupAction };

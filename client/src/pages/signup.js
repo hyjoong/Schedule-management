@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { withRouter, useNavigate } from "react-router-dom";
+
 import { FlexCenter } from "../components/shared/flexContainer";
 import Block from "../components/@commons/block";
 import Input from "../components/@commons/input";
@@ -9,10 +11,28 @@ import { INPUT_PLACEHOLDER } from "../constants/placeholder";
 
 import Button from "../components/@commons/button";
 import { theme } from "../styles/theme";
-import { validateNickname } from "../validations/nickname";
-import { validateUsername } from "../validations/username";
+import { validatename } from "../validations/name";
+import { useDispatch, useSelector } from "react-redux";
+import { SignupAction } from "../redux/action";
 
 const Signup = () => {
+  const { signUpDone, signUpError } = useSelector((state) => state.authReducer);
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (signUpDone) {
+      alert("회원가입 성공");
+      navigate("/login");
+    }
+  }, [signUpDone, navigate]);
+
+  useEffect(() => {
+    if (signUpError) {
+      alert(signUpError);
+    }
+  }, [signUpError]);
+
+  const dispatch = useDispatch();
   const {
     inputValue: email,
     errorMessage: emailErrorMessage,
@@ -24,16 +44,20 @@ const Signup = () => {
     setValueOnChange: onPasswordChange,
   } = useInput(validatePassword);
   const {
-    inputValue: username,
+    inputValue: name,
     errorMessage: usernameErrorMessage,
     setValueOnChange: onUsernameChange,
-  } = useInput(validateUsername);
-  const {
-    inputValue: nickname,
-    errorMessage: nicknameErrorMessage,
-    setValueOnChange: onNicknameChange,
-  } = useInput(validateNickname);
+  } = useInput(validatename);
 
+  const onSIgnup = async () => {
+    dispatch(
+      SignupAction({
+        email,
+        password,
+        name,
+      })
+    );
+  };
   return (
     <FlexCenter>
       <form>
@@ -61,22 +85,16 @@ const Signup = () => {
             placeholder={INPUT_PLACEHOLDER.PASSWORD}
           />
           <Input
-            value={username}
+            value={name}
             errorMessage={usernameErrorMessage}
             style={{ marginTop: "15px" }}
             onChange={onUsernameChange}
             placeholder={INPUT_PLACEHOLDER.USERNAME}
           />
-          <Input
-            value={nickname}
-            errorMessage={nicknameErrorMessage}
-            style={{ marginTop: "15px" }}
-            onChange={onNicknameChange}
-            placeholder={INPUT_PLACEHOLDER.NICKNAME}
-          />
           <Button
             backgroundColor={theme.lightBlue}
             style={{ width: "100%", marginTop: "15px" }}
+            onClick={onSIgnup}
           >
             회원가입
           </Button>

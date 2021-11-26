@@ -7,6 +7,10 @@ export const LOGOUT = "LOGOUT";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const LOGOUT_FAILURE = "LOGOUT_FAILURE";
 
+export const SIGNUP = "SIGNUP";
+export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
+export const SIGNUP_FAILURE = "SIGNUP_FAILURE";
+
 // plan
 export const LOAD_PLAN = "LOAD_PLAN";
 export const LOAD_PLAN_SUCCESS = "LOAD_PLAN_SUCCESS";
