@@ -8,18 +8,35 @@ import {
   LOGOUT_FAILURE,
   LOGOUT,
 } from "../redux/actionType";
-
-const PUBLIC_API = process.env.REACT_APP_BASE_URL;
+import { saveToken, clearToken, getToken } from "../utils/token";
+import { req } from "../apis/request";
 
 const loginAPI = async (data) => {
-  return axios.post(`${PUBLIC_API}/auth/login`, {
-    data,
+  const { email, password } = data;
+  const res = await req("/auth/login", {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify({ email, password }),
   });
+  saveToken(res.token);
+  console.log(res);
+  return res;
 };
 
-function logoutAPI(data) {
-  return axios.post("/user/logout", data);
-}
+const logoutAPI = async (data) => {
+  clearToken();
+};
+
+// 추후에 구현
+const me = async () => {
+  const token = getToken();
+  return req("/auth/me", {
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};
 
 function* login(action) {
   try {

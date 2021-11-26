@@ -16,104 +16,107 @@ import { Flex } from "../shared/flexContainer";
 import { AddPlan } from "../../redux/action";
 import PlanText from "./planText";
 import { LOAD_PLAN } from "../../redux/actionType";
+import { useParams } from "react-router-dom";
 
-const CalendarLayout = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch({
-      type: LOAD_PLAN,
-    });
-  }, [dispatch]);
+const CalendarLayout = () =>
+  // { scheduleService }
+  {
+    const { name } = useParams();
+    const dispatch = useDispatch();
+    useEffect(() => {
+      dispatch({
+        type: LOAD_PLAN,
+      });
+    }, [dispatch]);
+    const {
+      inputValue: text,
+      errorMessage: planErrorMessage,
+      setValueOnChange: onPlanChange,
+    } = useInput(validatePlan);
 
-  const {
-    inputValue: text,
-    errorMessage: planErrorMessage,
-    setValueOnChange: onPlanChange,
-  } = useInput(validatePlan);
+    const [dateStart, setDateStart] = useState("");
+    const [dateEnd, setDateEnd] = useState("");
+    const [isModal, setIsModal] = useState(false);
+    const [dateValue, setDateValue] = useState("");
 
-  const [dateStart, setDateStart] = useState("");
-  const [dateEnd, setDateEnd] = useState("");
-  const [isModal, setIsModal] = useState(false);
-  const [dateValue, setDateValue] = useState("");
+    const events = useSelector((state) => state.ScheduleReducer.scheduleData);
 
-  const events = useSelector((state) => state.ScheduleReducer.scheduleData);
+    const handleOk = useCallback(() => {
+      if (planErrorMessage) {
+        alert("계획을 추가할 수 없습니다. ");
+        return;
+      }
+      try {
+        dispatch(
+          AddPlan({
+            text,
+            start: dateStart,
+            end: dateEnd,
+          })
+        );
+        setIsModal(false);
+        setDateValue("");
+      } catch (error) {
+        alert(error.message);
+      }
+    }, [text, dateStart, dateEnd]);
 
-  const handleOk = useCallback(() => {
-    if (planErrorMessage) {
-      alert("계획을 추가할 수 없습니다. ");
-      return;
-    }
-    try {
-      dispatch(
-        AddPlan({
-          text,
-          start: dateStart,
-          end: dateEnd,
-        })
-      );
+    const handleCancel = () => {
       setIsModal(false);
-      setDateValue("");
-    } catch (error) {
-      alert(error.message);
-    }
-  }, [text, dateStart, dateEnd]);
+    };
 
-  const handleCancel = () => {
-    setIsModal(false);
+    const handleDate = useCallback((day) => {
+      setDateValue(day.dateStr);
+      setDateStart(day.date);
+      setDateEnd(day.date);
+      setIsModal(true);
+    }, []);
+    return (
+      <>
+        <CalendarWrapper>
+          <FullCalendar
+            plugins={[dayGridPlugin, interactionPlugin]}
+            initialView="dayGridMonth"
+            height="100%"
+            width="100%"
+            dateClick={handleDate}
+            events={events}
+          ></FullCalendar>
+        </CalendarWrapper>
+        {isModal && (
+          <ModalComponent handleCancel={handleCancel}>
+            <PlanText events={events} dateValue={dateValue} />
+            <PickerWrapper>
+              <DatePicker
+                selected={dateStart}
+                selectsStart
+                onChange={(date) => setDateStart(date)}
+                startDate={dateStart}
+              />
+              ~
+              <DatePicker
+                selected={dateEnd}
+                selectsEnd
+                onChange={(date) => setDateEnd(date)}
+                endDate={dateEnd}
+              />
+            </PickerWrapper>
+            <Input
+              value={text}
+              onChange={onPlanChange}
+              errorMessage={planErrorMessage}
+              placeholder={INPUT_PLACEHOLDER.PLAN}
+              required
+            />
+            <ButtomWrapper>
+              <Button onClick={handleOk}>등록</Button>
+              <Button onClick={handleCancel}>취소</Button>
+            </ButtomWrapper>
+          </ModalComponent>
+        )}
+      </>
+    );
   };
-
-  const handleDate = useCallback((day) => {
-    setDateValue(day.dateStr);
-    setDateStart(day.date);
-    setDateEnd(day.date);
-    setIsModal(true);
-  }, []);
-  return (
-    <>
-      <CalendarWrapper>
-        <FullCalendar
-          plugins={[dayGridPlugin, interactionPlugin]}
-          initialView="dayGridMonth"
-          height="100%"
-          width="100%"
-          dateClick={handleDate}
-          events={events}
-        ></FullCalendar>
-      </CalendarWrapper>
-      {isModal && (
-        <ModalComponent handleCancel={handleCancel}>
-          <PlanText events={events} dateValue={dateValue} />
-          <PickerWrapper>
-            <DatePicker
-              selected={dateStart}
-              selectsStart
-              onChange={(date) => setDateStart(date)}
-              startDate={dateStart}
-            />
-            ~
-            <DatePicker
-              selected={dateEnd}
-              selectsEnd
-              onChange={(date) => setDateEnd(date)}
-              endDate={dateEnd}
-            />
-          </PickerWrapper>
-          <Input
-            value={text}
-            onChange={onPlanChange}
-            errorMessage={planErrorMessage}
-            placeholder={INPUT_PLACEHOLDER.PLAN}
-            required
-          />
-          <ButtomWrapper>
-            <Button onClick={handleOk}>등록</Button>
-            <Button onClick={handleCancel}>취소</Button>
-          </ButtomWrapper>
-        </ModalComponent>
-      )}
-    </>
-  );
-};
 
 const CalendarWrapper = styled.div`
   width: 90%;
