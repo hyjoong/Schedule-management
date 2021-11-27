@@ -15,13 +15,12 @@ const App = () => {
       navigate("/login");
     }
     //else navigate(`/${user}`);
-  }, [user]);
+  }, [user, navigate]);
   return (
     <Routes>
       <Route exact path="/" element={<Main />}></Route>
       <Route exact path="/login" element={<Login />}></Route>
       <Route exact path="/signup" element={<Signup />}></Route>
-      <Route exact path="/:name" element={<CalendarLayout />}></Route>
     </Routes>
   );
 };

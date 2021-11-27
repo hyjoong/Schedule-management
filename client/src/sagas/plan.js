@@ -23,8 +23,7 @@ const PUBLIC_API = process.env.REACT_APP_BASE_URL;
 
 const loadPlanAPI = async (data) => {
   const { user } = data;
-  return await req(`/schedules`, {
-    // return await req(`/schedules?name=/${user}`, {
+  return await req(`/schedules?name=${user}`, {
     method: "GET",
     headers: getHeaders(),
   });
