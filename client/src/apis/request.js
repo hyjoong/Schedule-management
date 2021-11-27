@@ -1,14 +1,9 @@
-import axios from "axios";
 import { getToken } from "../utils/token";
 
 const baseURL = process.env.REACT_APP_BASE_URL;
 
-export const request = axios.create({
-  baseURL: `${process.env.REACT_APP_BASE_URL}`,
-  withCredentials: true,
-});
-
 export const req = async (url, options) => {
+  console.log(`최종 받는 url : ${baseURL}${url}`);
   const res = await fetch(`${baseURL}${url}`, {
     ...options,
     headers: {
@@ -16,6 +11,7 @@ export const req = async (url, options) => {
       ...options.headers,
     },
   });
+  console.log("res 결과 : ", res);
   let data;
   try {
     data = await res.json();

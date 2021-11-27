@@ -8,7 +8,7 @@ import { isAuth } from "../middleware/auth.js";
 const router = express.Router();
 
 const validateCredential = [
-  body("email").notEmpty().withMessage("email is missing"),
+  body("name").notEmpty().withMessage("name is missing"),
   body("password")
     .trim()
     .isLength({ min: 5 })
@@ -18,10 +18,7 @@ const validateCredential = [
 
 const validateSignup = [
   ...validateCredential,
-  body("name")
-    .trim()
-    .notEmpty()
-    .withMessage("name should be at least 5 characters"),
+  body("email").isEmail().normalizeEmail().withMessage("invalid email"),
   validate,
 ];
 

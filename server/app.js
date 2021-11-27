@@ -29,6 +29,8 @@ app.use((error, req, res, next) => {
 
 connectDB()
   .then((db) => {
+    console.log(`✔ server start ${config.host.port}`);
+    console.log("✔ DB Connected");
     app.listen(config.host.port);
   })
   .catch("error", console.error);

@@ -10,8 +10,8 @@ const userSchema = new Mongoose.Schema({
 useVirtualId(userSchema); // 가상의 id추가
 const User = Mongoose.model("User", userSchema); // User라는 collection을 userSchema와 연결
 
-export async function findByEmail(email) {
-  return User.findOne({ email });
+export async function findByName(name) {
+  return User.findOne({ name });
 }
 export const findById = async (id) => {
   return User.findById(id);

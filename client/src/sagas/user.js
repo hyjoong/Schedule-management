@@ -1,5 +1,5 @@
 import { all, fork, takeLatest, call, put } from "redux-saga/effects";
-import axios from "axios";
+
 import {
   LOGIN,
   LOGIN_SUCCESS,
@@ -15,13 +15,13 @@ import { saveToken, clearToken, getToken } from "../utils/token";
 import { req } from "../apis/request";
 
 const loginAPI = async (data) => {
-  const { email, password } = data;
+  const { name, password } = data;
   const res = await req("/auth/login", {
     headers: {
       "Content-Type": "application/json",
     },
     method: "POST",
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ name, password }),
   });
   saveToken(res.token);
   console.log(res);
@@ -46,28 +46,29 @@ const signUpAPI = async (data) => {
 };
 
 // 추후에 구현
-const me = async () => {
-  const token = getToken();
-  return req("/auth/me", {
-    method: "GET",
-    headers: { Authorization: `Bearer ${token}` },
-  });
-};
+// const me = async () => {
+//   const token = getToken();
+//   return req("/auth/me", {
+//     method: "GET",
+//     headers: { Authorization: `Bearer ${token}` },
+//   });
+// };
 
 function* login(action) {
   try {
     const result = yield call(loginAPI, action.data);
+    console.log("로그인 결과", result);
     yield put({
       type: LOGIN_SUCCESS,
-      data: result.data,
+      data: result,
     });
-  } catch (e) {
-    console.error(e);
-    yield put({ type: LOGIN_FAILURE });
+  } catch (err) {
+    console.error(err);
+    yield put({ type: LOGIN_FAILURE, error: err.response.data });
   }
 }
 
-function* logout(action) {
+function* logout() {
   try {
     yield call(logoutAPI);
     yield put({
@@ -82,11 +83,12 @@ function* logout(action) {
   }
 }
 
-function* signUp(action) {
+function* signup(action) {
+  const result = yield call(signUpAPI, action.data);
   try {
-    yield call(signUpAPI, action.data);
     yield put({
       type: SIGNUP_SUCCESS,
+      data: result.data,
     });
   } catch (err) {
     yield put({
@@ -104,7 +106,7 @@ function* watchLogout() {
   yield takeLatest(LOGOUT, logout);
 }
 function* watchSignUp() {
-  yield takeLatest(SIGNUP, signUp);
+  yield takeLatest(SIGNUP, signup);
 }
 
 export default function* userSaga() {

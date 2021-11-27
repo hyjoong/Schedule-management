@@ -6,9 +6,9 @@ import { config } from "../config.js";
 
 export async function signup(req, res) {
   const { password, name, email } = req.body;
-  const found = await userRepository.findByEmail(email);
+  const found = await userRepository.findByName(name);
   if (found) {
-    return res.status(409).json({ message: `${email} already exists` });
+    return res.status(409).json({ message: `${name} already exists` });
   }
   const hashed = await bcrypt.hash(password, config.bcrypt.saltRounds);
   const userId = await userRepository.createUser({
@@ -17,21 +17,21 @@ export async function signup(req, res) {
     email,
   });
   const token = createJwtToken(userId);
-  res.status(201).json({ token, email });
+  res.status(201).json({ token, email, name });
 }
 
 export async function login(req, res) {
-  const { email, password } = req.body;
-  const user = await userRepository.findByEmail(email);
+  const { name, password } = req.body;
+  const user = await userRepository.findByName(name);
   if (!user) {
-    return res.status(401).json({ message: `Invalid ${email}` });
+    return res.status(401).json({ message: `Invalid ${name}` });
   }
   const isValidPassword = await bcrypt.compare(password, user.password);
   if (!isValidPassword) {
     return res.status(401).json({ message: "Invalid password" });
   }
   const token = createJwtToken(user.id);
-  res.status(200).json({ token, email });
+  res.status(200).json({ token, name });
 }
 
 const createJwtToken = (id) => {

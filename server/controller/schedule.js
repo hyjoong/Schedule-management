@@ -19,9 +19,9 @@ export const getSchedule = async (req, res, next) => {
 };
 
 export const createSchedule = async (req, res, next) => {
-  const { text, start, end } = req.body;
+  const { title, start, end } = req.body;
   const schedule = await scheduleRepository.create(
-    text,
+    title,
     start,
     end,
     req.userId
@@ -31,7 +31,7 @@ export const createSchedule = async (req, res, next) => {
 
 export const updateSchedule = async (req, res, next) => {
   const id = req.params.id;
-  const { text, start, end } = req.body;
+  const { title, start, end } = req.body;
   const schedule = await scheduleRepository.getById(id);
   if (!schedule) {
     return res.status(404).json({ message: `Schedule not found: ${id}` });
@@ -39,7 +39,7 @@ export const updateSchedule = async (req, res, next) => {
   if (schedule.userId !== req.userId) {
     return res.sendStatus(403);
   }
-  const updated = await scheduleRepository.update(id, text, start, end);
+  const updated = await scheduleRepository.update(id, title, start, end);
   res.status(200).json(updated);
 };
 

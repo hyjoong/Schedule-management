@@ -8,10 +8,10 @@ import { validate } from "../middleware/validator.js";
 const router = express.Router();
 
 const validateSchedule = [
-  body("text")
+  body("title")
     .trim()
     .isLength({ max: 20 })
-    .withMessage("text are limited to 20 characters"),
+    .withMessage("title are limited to 20 characters"),
   validate,
 ];
 

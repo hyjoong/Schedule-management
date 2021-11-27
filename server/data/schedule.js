@@ -1,11 +1,10 @@
 import Mongoose from "mongoose";
 import { useVirtualId } from "../database/database.js";
 import * as userRepository from "./auth.js";
-
-// 시작 날짜, 종료 날짜 두개의 key값 추가해야함  (일단 textm userId 만 )
+ 
 const ScheduleSchema = new Mongoose.Schema(
   {
-    text: { type: String, required: true },
+    title: { type: String, required: true },
     userId: { type: String, required: true },
     name: { type: String, required: true },
     start: { type: String, required: true },
@@ -29,10 +28,10 @@ export const getById = async (id) => {
   return Plan.findById(id);
 };
 
-export const create = async (text, start, end, userId) => {
+export const create = async (title, start, end, userId) => {
   return userRepository.findById(userId).then((user) =>
     new Plan({
-      text,
+      title,
       userId,
       name: user.name,
       start,
@@ -41,11 +40,11 @@ export const create = async (text, start, end, userId) => {
   );
 };
 
-export const update = async (id, text, start, end) => {
+export const update = async (id, title, start, end) => {
   return Plan.findByIdAndUpdate(
     id,
     {
-      text,
+      title,
       start,
       end,
     },
