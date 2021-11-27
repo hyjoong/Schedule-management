@@ -11,7 +11,8 @@ const TodoItem = ({ id, title, end }) => {
   let endDay = new Date(end).getTime();
   let day = endDay - now;
   let dday = Math.round(day / (1000 * 60 * 60 * 24));
-
+  let dayConfig = dday > 0 ? "D-" : "D+";
+  let calcDday = dday > 0 ? dday : Math.abs(dday);
   const handleDelete = useCallback(
     (id) => {
       dispatch({
@@ -28,7 +29,10 @@ const TodoItem = ({ id, title, end }) => {
         <TodoBox>
           <Radio key={id}></Radio>
           <TodoText>{title}</TodoText>
-          <TodoDate>D-{dday}</TodoDate>
+          <TodoDate>
+            {dayConfig}
+            {calcDday}
+          </TodoDate>
         </TodoBox>
         <TodoButton>
           <TodoDelete onClick={() => handleDelete(id)}>삭제</TodoDelete>
