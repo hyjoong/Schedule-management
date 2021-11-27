@@ -13,72 +13,73 @@ import { validatePlan } from "../../validations/plan";
 import { INPUT_PLACEHOLDER } from "../../constants/placeholder";
 import Button from "../@commons/button";
 import { Flex } from "../shared/flexContainer";
-import { AddPlan } from "../../redux/action";
+import { AddPlan, LoadPlanAction } from "../../redux/action";
 import PlanText from "./planText";
-import { LOAD_PLAN } from "../../redux/actionType";
-import { useParams } from "react-router-dom";
 
-const CalendarLayout = () =>
-  // { scheduleService }
-  {
-    const { name } = useParams();
-    const dispatch = useDispatch();
-    useEffect(() => {
-      dispatch({
-        type: LOAD_PLAN,
-      });
-    }, [dispatch]);
-    const {
-      inputValue: text,
-      errorMessage: planErrorMessage,
-      setValueOnChange: onPlanChange,
-    } = useInput(validatePlan);
+const CalendarLayout = () => {
+  const dispatch = useDispatch();
 
-    const [dateStart, setDateStart] = useState("");
-    const [dateEnd, setDateEnd] = useState("");
-    const [isModal, setIsModal] = useState(false);
-    const [dateValue, setDateValue] = useState("");
-
-    const events = useSelector((state) => state.ScheduleReducer.scheduleData);
-
-    const handleOk = useCallback(() => {
-      if (planErrorMessage) {
-        alert("계획을 추가할 수 없습니다. ");
-        return;
-      }
+  const [dateStart, setDateStart] = useState("");
+  const [dateEnd, setDateEnd] = useState("");
+  const [isModal, setIsModal] = useState(false);
+  const [dateValue, setDateValue] = useState("");
+  const { user } = useSelector((state) => state.authReducer);
+  useEffect(() => {
+    if (user) {
       dispatch(
-        AddPlan({
-          text,
-          start: dateStart,
-          end: dateEnd,
+        LoadPlanAction({
+          user,
         })
       );
-      setIsModal(false);
-      setDateValue("");
-    }, [text, dateStart, dateEnd]);
+    }
+    console.log("data Loaded");
+  }, [dispatch, user]);
+  // schedule data load
+  const events = useSelector((state) => state.ScheduleReducer.scheduleData);
 
-    const handleCancel = () => {
-      setIsModal(false);
-    };
+  const {
+    inputValue: title,
+    errorMessage: planErrorMessage,
+    setValueOnChange: onPlanChange,
+  } = useInput(validatePlan);
 
-    const handleDate = useCallback((day) => {
-      setDateValue(day.dateStr);
-      setDateStart(day.date);
-      setDateEnd(day.date);
-      setIsModal(true);
-    }, []);
-    return (
-      <>
-        <CalendarWrapper>
-          <FullCalendar
-            plugins={[dayGridPlugin, interactionPlugin]}
-            initialView="dayGridMonth"
-            height="100%"
-            width="100%"
-            dateClick={handleDate}
-            events={events}
-          ></FullCalendar>
-        </CalendarWrapper>
+  const handleOk = useCallback(() => {
+    if (planErrorMessage) {
+      alert("계획을 추가할 수 없습니다. ");
+      return;
+    }
+    dispatch(
+      AddPlan({
+        title: title,
+        start: dateStart,
+        end: dateEnd,
+      })
+    );
+    setIsModal(false);
+    setDateValue("");
+  }, [title, dateStart, dateEnd]);
+
+  const handleCancel = () => {
+    setIsModal(false);
+  };
+
+  const handleDate = useCallback((day) => {
+    setDateValue(day.dateStr);
+    setDateStart(day.date);
+    setDateEnd(day.date);
+    setIsModal(true);
+  }, []);
+  return (
+    <>
+      <CalendarWrapper>
+        <FullCalendar
+          plugins={[dayGridPlugin, interactionPlugin]}
+          initialView="dayGridMonth"
+          height="100%"
+          width="100%"
+          dateClick={handleDate}
+          events={events}
+        ></FullCalendar>
         {isModal && (
           <ModalComponent handleCancel={handleCancel}>
             <PlanText events={events} dateValue={dateValue} />
@@ -98,7 +99,7 @@ const CalendarLayout = () =>
               />
             </PickerWrapper>
             <Input
-              value={text}
+              value={title}
               onChange={onPlanChange}
               errorMessage={planErrorMessage}
               placeholder={INPUT_PLACEHOLDER.PLAN}
@@ -110,9 +111,10 @@ const CalendarLayout = () =>
             </ButtomWrapper>
           </ModalComponent>
         )}
-      </>
-    );
-  };
+      </CalendarWrapper>
+    </>
+  );
+};
 
 const CalendarWrapper = styled.div`
   width: 90%;

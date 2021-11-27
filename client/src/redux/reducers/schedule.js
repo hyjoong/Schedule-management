@@ -15,29 +15,22 @@ import {
   DELETE_PLAN_FAILURE,
 } from "../actionType";
 
-const initialState = {
+export const initialState = {
   scheduleData: [
-    {
-      id: 0,
-      title: "study",
-      dateValue: "2021-11-14",
-      start: "2021-11-14",
-      end: "2021-11-15",
-    },
-    {
-      id: 1,
-      title: "event 2",
-      dateValue: "2021-11-20",
-      start: "2021-11-20",
-      end: "2021-11-21",
-    },
-    {
-      id: 2,
-      title: "event 32233",
-      dateValue: "2021-11-23",
-      start: "2021-11-23",
-      end: "2021-11-30",
-    },
+    // {
+    //   id: 1,
+    //   title: "event 2",
+    //   dateValue: "2021-11-20",
+    //   start: "2021-11-20",
+    //   end: "2021-11-21",
+    // },
+    // {
+    //   id: 2,
+    //   title: "event 32233",
+    //   dateValue: "2021-11-23",
+    //   start: "2021-11-23",
+    //   end: "2021-11-30",
+    // },
   ],
   addPlanLoading: false,
   addPlanDone: false,
@@ -67,7 +60,7 @@ const ScheduleReducer = (state = initialState, action) => {
       case LOAD_PLAN_SUCCESS:
         draft.loadPlanLoading = false;
         draft.loadPlanDone = true;
-        draft.planData = action.data;
+        draft.scheduleData = action.data;
         break;
       case LOAD_PLAN_FAILURE:
         draft.loadPlanLoading = false;

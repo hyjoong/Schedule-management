@@ -1,6 +1,5 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { validateEmail } from "../validations/email";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux"; 
 import { validatePassword } from "../validations/password";
 import { theme } from "../styles/theme";
 import { FlexCenter } from "./shared/flexContainer";
@@ -10,22 +9,43 @@ import Input from "./@commons/input";
 import { INPUT_PLACEHOLDER } from "../constants/placeholder";
 import useInput from "../hooks/useinput";
 import { LoginAction } from "../redux/action";
+import { useNavigate } from "react-router-dom";
+import { validatename } from "../validations/name";
 
 const LoginWrapper = () => {
   const dispatch = useDispatch();
-  const { inputValue: email, setValueOnChange: onEmailChange } = useInput(
-    validateEmail
+  const navigate = useNavigate();
+  const { logInError, user } = useSelector((state) => state.authReducer);
+  const { username } = useSelector((state) => state.authReducer);
+  const { inputValue: name, setValueOnChange: onEmailChange } = useInput(
+    validatename
   );
   const { inputValue: password, setValueOnChange: onPasswordChange } = useInput(
     validatePassword
   );
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
+
+  useEffect(() => {
+    if (logInError) {
+      alert(logInError);
+    }
+  }, [logInError]);
+
   const onLogin = async () => {
     dispatch(
       LoginAction({
-        email,
+        name,
         password,
       })
     );
+  };
+
+  const onSignup = () => {
+    navigate("/signup");
   };
 
   return (
@@ -40,8 +60,8 @@ const LoginWrapper = () => {
           }}
         >
           <Input
-            value={email}
-            placeholder={INPUT_PLACEHOLDER.USERNAME}
+            value={name}
+            placeholder={INPUT_PLACEHOLDER.NAME}
             style={{ marginTop: "15px" }}
             onChange={onEmailChange}
             required
@@ -65,6 +85,7 @@ const LoginWrapper = () => {
           <Button
             backgroundColor={theme.lightBlue}
             style={{ width: "100%", marginTop: "15px", color: "white" }}
+            onClick={onSignup}
           >
             회원가입
           </Button>

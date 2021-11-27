@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 const TodoList = () => {
   const events = useSelector((state) => state.ScheduleReducer.scheduleData);
-
+  console.log("zz", events);
   return (
     <TodoListBlock>
       {events &&

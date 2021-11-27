@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { useCallback } from "react";
 import { DELETE_PLAN } from "../../redux/actionType";
 
-const TodoItem = ({ id, text, end }) => {
+const TodoItem = ({ id, title, end }) => {
   const dispatch = useDispatch();
   let now = new Date().getTime();
   let endDay = new Date(end).getTime();
@@ -27,7 +27,7 @@ const TodoItem = ({ id, text, end }) => {
       <TodoContainer>
         <TodoBox>
           <Radio key={id}></Radio>
-          <TodoText>{text}</TodoText>
+          <TodoText>{title}</TodoText>
           <TodoDate>D-{dday}</TodoDate>
         </TodoBox>
         <TodoButton>

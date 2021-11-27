@@ -21,7 +21,7 @@ const initialState = {
   signUpLoading: false,
   signUpDone: false,
   signUpError: null,
-  user: null,
+  user: null, // login한 유저의 닉네임
   signUpData: {},
   loginData: {},
 };
@@ -37,7 +37,7 @@ const authReducer = (state = initialState, action) => {
       case LOGIN_SUCCESS:
         draft.logInLoading = false;
         draft.logInDone = true;
-        draft.user = action.data;
+        draft.user = action.data.name;
         break;
       case LOGIN_FAILURE:
         draft.logInLoading = false;

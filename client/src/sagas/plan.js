@@ -17,12 +17,18 @@ import {
   LOAD_PLAN,
   LOAD_PLAN_SUCCESS,
 } from "../redux/actionType";
+import { req, getHeaders } from "../apis/request";
 
 const PUBLIC_API = process.env.REACT_APP_BASE_URL;
 
-function loadPlanAPI(name) {
-  return axios.get(`${PUBLIC_API}/schedules/${name}`);
-}
+const loadPlanAPI = async (data) => {
+  const { user } = data;
+  return await req(`/schedules`, {
+    // return await req(`/schedules?name=/${user}`, {
+    method: "GET",
+    headers: getHeaders(),
+  });
+};
 
 function addPlanAPI(data) {
   return axios.post(`${PUBLIC_API}/schedules`, data);
@@ -102,10 +108,11 @@ function* donePlan(action) {
 
 function* loadPlan(action) {
   try {
-    const result = yield call(loadPlanAPI);
+    const result = yield call(loadPlanAPI, action.data);
+    console.log("페치한 결과 ~", result);
     yield put({
       type: LOAD_PLAN_SUCCESS,
-      data: result.data,
+      data: result,
     });
   } catch (err) {
     yield put({

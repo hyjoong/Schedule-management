@@ -3,6 +3,6 @@ export const INPUT_PLACEHOLDER = {
   PASSWORD: "password",
   REPASSWORD: "confirm password",
   USERNAME: "username",
-  NICKNAME: "nickname",
+  NAME: "ID",
   PLAN: "Enter your plan",
 };
