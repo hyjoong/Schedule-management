@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux"; 
+import { useDispatch, useSelector } from "react-redux";
 import { validatePassword } from "../validations/password";
 import { theme } from "../styles/theme";
 import { FlexCenter } from "./shared/flexContainer";
@@ -16,7 +16,6 @@ const LoginWrapper = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { logInError, user } = useSelector((state) => state.authReducer);
-  const { username } = useSelector((state) => state.authReducer);
   const { inputValue: name, setValueOnChange: onEmailChange } = useInput(
     validatename
   );

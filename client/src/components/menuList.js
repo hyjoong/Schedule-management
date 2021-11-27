@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Menu } from "antd";
+import { useNavigate } from "react-router-dom";
+import { clearToken } from "../utils/token";
+import { useDispatch } from "react-redux";
+import { LogoutAction } from "../redux/action";
 import {
   ScheduleOutlined,
   CalendarOutlined,
@@ -7,11 +11,22 @@ import {
   SettingOutlined,
 } from "@ant-design/icons";
 
+const { SubMenu } = Menu;
+
 const MenuList = ({ onChangeScreen }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const changeScreen = (e) => {
     onChangeScreen(e.key);
   };
-  const { SubMenu } = Menu;
+
+  const handleLogout = useCallback(() => {
+    clearToken();
+    dispatch(LogoutAction());
+    navigate("/login");
+  }, [navigate, dispatch]);
+
   return (
     <>
       <Menu
@@ -31,7 +46,7 @@ const MenuList = ({ onChangeScreen }) => {
               style={{ fontSize: "1rem", marginRight: "0.5rem" }}
             />
           }
-          style={{ fontSize: "1rem", marginBottom: "2rem" }}
+          style={{ fontSize: "1rem", marginBottom: "2rem", cursor: "pointer" }}
         >
           Schedule
         </Menu.Item>
@@ -43,7 +58,7 @@ const MenuList = ({ onChangeScreen }) => {
               style={{ fontSize: "1rem", marginRight: "0.5rem" }}
             />
           }
-          style={{ fontSize: "1rem", marginBottom: "2rem" }}
+          style={{ fontSize: "1rem", marginBottom: "2rem", cursor: "pointer" }}
         >
           Calendar
         </Menu.Item>
@@ -55,7 +70,7 @@ const MenuList = ({ onChangeScreen }) => {
               style={{ fontSize: "1rem", marginRight: "0.5rem" }}
             />
           }
-          style={{ fontSize: "1rem", marginBottom: "2rem" }}
+          style={{ fontSize: "1rem", marginBottom: "2rem", cursor: "pointer" }}
         >
           History
         </Menu.Item>
@@ -66,27 +81,27 @@ const MenuList = ({ onChangeScreen }) => {
               style={{ fontSize: "1rem", marginRight: "0.5rem" }}
             />
           }
-          title="Setting"
+          title="설정"
           style={{
             fontSize: "1rem",
             marginBottom: "2rem",
-
             height: "80px",
+            cursor: "pointer",
           }}
         >
           <Menu.Item
             key="5"
             onClick={(e) => changeScreen(e)}
-            style={{ fontSize: "1rem", marginTop: "0.2rem" }}
+            style={{ fontSize: "1rem", marginTop: "0.2rem", cursor: "pointer" }}
           >
-            My Info
+            내 정보
           </Menu.Item>
           <Menu.Item
             key="6"
-            onClick={(e) => changeScreen(e)}
-            style={{ fontSize: "1rem", marginTop: "0.2rem" }}
+            onClick={(e) => handleLogout(e)}
+            style={{ fontSize: "1rem", marginTop: "0.2rem", cursor: "pointer" }}
           >
-            Logout
+            로그아웃
           </Menu.Item>
         </SubMenu>
       </Menu>

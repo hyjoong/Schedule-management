@@ -16,21 +16,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { SignupAction } from "../redux/action";
 
 const Signup = () => {
-  const { signUpDone, signUpError } = useSelector((state) => state.authReducer);
+  const { signUpDone } = useSelector((state) => state.authReducer);
 
   const navigate = useNavigate();
   useEffect(() => {
     if (signUpDone) {
-      alert("회원가입 성공");
       navigate("/login");
     }
   }, [signUpDone, navigate]);
-
-  useEffect(() => {
-    if (signUpError) {
-      alert(signUpError);
-    }
-  }, [signUpError]);
 
   const dispatch = useDispatch();
   const {

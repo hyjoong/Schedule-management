@@ -15,7 +15,7 @@ const App = () => {
       navigate("/login");
     }
     //else navigate(`/${user}`);
-  }, [user, navigate]);
+  }, [user]);
   return (
     <Routes>
       <Route exact path="/" element={<Main />}></Route>

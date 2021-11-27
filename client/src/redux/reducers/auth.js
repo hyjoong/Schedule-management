@@ -53,6 +53,7 @@ const authReducer = (state = initialState, action) => {
         draft.logOutLoading = false;
         draft.logOutDone = true;
         draft.user = null;
+        draft.signUpDone = false;
         break;
       case LOGOUT_FAILURE:
         draft.logOutLoading = false;
