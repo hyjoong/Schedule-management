@@ -5,14 +5,14 @@ import { useDispatch } from "react-redux";
 import { useCallback } from "react";
 import { DELETE_PLAN } from "../../redux/actionType";
 
-const TodoItem = ({ id, title, end }) => {
+const TodoItem = ({ id, title, start, end }) => {
   const dispatch = useDispatch();
   let now = new Date().getTime();
   let endDay = new Date(end).getTime();
   let day = endDay - now;
   let dday = Math.round(day / (1000 * 60 * 60 * 24));
   let dayConfig = dday > 0 ? "D-" : "D+";
-  let calcDday = dday > 0 ? dday : Math.abs(dday);
+  let absDday = Math.abs(dday);
   const handleDelete = useCallback(
     (id) => {
       dispatch({
@@ -31,8 +31,11 @@ const TodoItem = ({ id, title, end }) => {
           <TodoText>{title}</TodoText>
           <TodoDate>
             {dayConfig}
-            {calcDday}
+            {absDday}
           </TodoDate>
+          <TodoDuration>
+            {start}~{end}
+          </TodoDuration>
         </TodoBox>
         <TodoButton>
           <TodoDelete onClick={() => handleDelete(id)}>삭제</TodoDelete>
@@ -66,6 +69,12 @@ const TodoText = styled.span`
 const TodoDate = styled(FlexJustifyCenter)`
   font-size: 0.8rem;
   color: red;
+`;
+
+const TodoDuration = styled(FlexJustifyCenter)`
+  margin-left: 1rem;
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.3);
 `;
 
 const TodoButton = styled.div``;
