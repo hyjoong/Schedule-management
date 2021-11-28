@@ -12,6 +12,9 @@ const TodoItem = ({ id, title, start, end }) => {
   let dday = Math.round(day / (1000 * 60 * 60 * 24));
   let dayConfig = dday > 0 ? "D-" : "D+";
   let absDday = Math.abs(dday);
+
+  let startSlice = start.slice(0, 10);
+  let endSlice = end.slice(0, 10);
   const handleDelete = async (id) => {
     dispatch(
       DeleteAction({
@@ -31,7 +34,7 @@ const TodoItem = ({ id, title, start, end }) => {
             {absDday}
           </TodoDate>
           <TodoDuration>
-            {start}~{end}
+            {startSlice}~{endSlice}
           </TodoDuration>
         </TodoBox>
         <TodoButton>
