@@ -11,20 +11,17 @@ import {
   SIGNUP_FAILURE,
   SIGNUP,
 } from "../redux/actionType";
-import { saveToken, clearToken, getToken } from "../utils/token";
+import { saveToken, clearToken } from "../utils/token";
 import { req } from "../apis/request";
 
 const loginAPI = async (data) => {
   const { name, password } = data;
   const res = await req("/auth/login", {
-    headers: {
-      "Content-Type": "application/json",
-    },
     method: "POST",
     body: JSON.stringify({ name, password }),
   });
   saveToken(res.token);
-  console.log(res);
+  console.log("token", res.token);
   return res;
 };
 
@@ -35,9 +32,6 @@ const logoutAPI = async (data) => {
 const signUpAPI = async (data) => {
   const { email, name, password } = data;
   const res = await req("/auth/signup", {
-    headers: {
-      "Content-Type": "application/json",
-    },
     method: "POST",
     body: JSON.stringify({ email, name, password }),
   });

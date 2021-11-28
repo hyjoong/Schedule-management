@@ -3,7 +3,6 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
 import Main from "./pages/main";
-import CalendarLayout from "./components/calendar/calendarLayout";
 import { useSelector } from "react-redux";
 
 const App = () => {
@@ -14,8 +13,7 @@ const App = () => {
     if (!user) {
       navigate("/login");
     }
-    //else navigate(`/${user}`);
-  }, [user]);
+  }, [navigate, user]);
   return (
     <Routes>
       <Route exact path="/" element={<Main />}></Route>

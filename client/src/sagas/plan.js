@@ -18,8 +18,7 @@ import {
   LOAD_PLAN_SUCCESS,
 } from "../redux/actionType";
 import { req, getHeaders } from "../apis/request";
-
-const PUBLIC_API = process.env.REACT_APP_BASE_URL;
+import { saveToken } from "../utils/token";
 
 const loadPlanAPI = async (data) => {
   const { user } = data;
@@ -29,25 +28,58 @@ const loadPlanAPI = async (data) => {
   });
 };
 
-function addPlanAPI(data) {
-  return axios.post(`${PUBLIC_API}/schedules`, data);
-}
+const addPlanAPI = async (data) => {
+  const { title, start, end } = data;
+  console.log(title, start, end);
+  console.log(start.slice(0, 10));
+  console.log(end.slice(0, 10));
+  const res = await req(`/schedules`, {
+    method: "POST",
+    headers: getHeaders(),
+    body: JSON.stringify({ title, start, end }),
+  });
+  saveToken(res.token);
+  console.log(res);
+  return res;
+};
 
 function updatePlanAPI(data) {
-  return axios.patch(`${PUBLIC_API}/schedules/${data.id}`, data);
+  // return axios.patch(`${PUBLIC_API}/schedules/${data.id}`, data);
 }
 
-function deletePlanAPI(data) {
-  return axios.delete(`/schedules/${data}`);
-}
+const deletePlanAPI = async (data) => {
+  const id = data;
+  return await req(`/schedules/${id}`, {
+    method: "DELETE",
+    headers: getHeaders(),
+  });
+};
 
 function donePlanAPI(data) {
   return axios.patch(`/schedules/done/${data}`, data);
 }
 
+function* loadPlan(action) {
+  try {
+    const result = yield call(loadPlanAPI, action.data);
+    console.log("load res =", result);
+    yield put({
+      type: LOAD_PLAN_SUCCESS,
+      data: result,
+    });
+  } catch (err) {
+    yield put({
+      type: LOAD_PLAN_FAILURE,
+      data: err.response.data,
+    });
+  }
+}
+
 function* addPlan(action) {
+  console.log("액션은", action);
   try {
     const result = yield call(addPlanAPI, action.data);
+    console.log("add_plan_result", result);
     yield put({
       type: ADD_PLAN_SUCCESS,
       data: result.data,
@@ -76,13 +108,17 @@ function* updatePlan(action) {
 }
 
 function* deletePlan(action) {
+  console.log("action = ", action);
   try {
-    const result = yield call(deletePlanAPI, action.data);
+    const result = yield call(deletePlanAPI, action.data.id);
+    console.log("res = ", result);
     yield put({
       type: DELETE_PLAN_SUCCESS,
       data: result.data,
     });
   } catch (err) {
+    console.log("에러발생 !!", err);
+    console.log("에러발생 err.response =  !!", err.response);
     yield put({
       type: DELETE_PLAN_FAILURE,
       data: err.response.data,
@@ -100,22 +136,6 @@ function* donePlan(action) {
   } catch (err) {
     yield put({
       type: DONE_PLAN_FAILURE,
-      data: err.response.data,
-    });
-  }
-}
-
-function* loadPlan(action) {
-  try {
-    const result = yield call(loadPlanAPI, action.data);
-    console.log("페치한 결과 ~", result);
-    yield put({
-      type: LOAD_PLAN_SUCCESS,
-      data: result,
-    });
-  } catch (err) {
-    yield put({
-      type: LOAD_PLAN_FAILURE,
       data: err.response.data,
     });
   }

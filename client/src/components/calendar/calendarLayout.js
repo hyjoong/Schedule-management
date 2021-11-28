@@ -13,7 +13,7 @@ import { validatePlan } from "../../validations/plan";
 import { INPUT_PLACEHOLDER } from "../../constants/placeholder";
 import Button from "../@commons/button";
 import { Flex } from "../shared/flexContainer";
-import { AddPlan, LoadPlanAction } from "../../redux/action";
+import { AddPlanAction, LoadPlanAction } from "../../redux/action";
 import PlanText from "./planText";
 
 const CalendarLayout = () => {
@@ -24,6 +24,7 @@ const CalendarLayout = () => {
   const [isModal, setIsModal] = useState(false);
   const [dateValue, setDateValue] = useState("");
   const { user } = useSelector((state) => state.authReducer);
+  const events = useSelector((state) => state.ScheduleReducer.scheduleData);
   useEffect(() => {
     if (user) {
       dispatch(
@@ -35,7 +36,6 @@ const CalendarLayout = () => {
     console.log("data Loaded");
   }, [dispatch, user]);
   // schedule data load
-  const events = useSelector((state) => state.ScheduleReducer.scheduleData);
 
   const {
     inputValue: title,
@@ -49,7 +49,7 @@ const CalendarLayout = () => {
       return;
     }
     dispatch(
-      AddPlan({
+      AddPlanAction({
         title: title,
         start: dateStart,
         end: dateEnd,

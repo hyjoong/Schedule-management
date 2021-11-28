@@ -2,8 +2,7 @@ import styled from "styled-components";
 import { Flex, FlexBetween, FlexJustifyCenter } from "../shared/flexContainer";
 import { Radio } from "antd";
 import { useDispatch } from "react-redux";
-import { useCallback } from "react";
-import { DELETE_PLAN } from "../../redux/actionType";
+import { DeleteAction } from "../../redux/action";
 
 const TodoItem = ({ id, title, start, end }) => {
   const dispatch = useDispatch();
@@ -13,15 +12,13 @@ const TodoItem = ({ id, title, start, end }) => {
   let dday = Math.round(day / (1000 * 60 * 60 * 24));
   let dayConfig = dday > 0 ? "D-" : "D+";
   let absDday = Math.abs(dday);
-  const handleDelete = useCallback(
-    (id) => {
-      dispatch({
-        type: DELETE_PLAN,
+  const handleDelete = async (id) => {
+    dispatch(
+      DeleteAction({
         id,
-      });
-    },
-    [dispatch]
-  );
+      })
+    );
+  };
 
   return (
     <TodoWrapper>
