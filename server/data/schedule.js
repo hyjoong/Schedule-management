@@ -1,14 +1,14 @@
 import Mongoose from "mongoose";
 import { useVirtualId } from "../database/database.js";
 import * as userRepository from "./auth.js";
- 
+
 const ScheduleSchema = new Mongoose.Schema(
   {
     title: { type: String, required: true },
     userId: { type: String, required: true },
     name: { type: String, required: true },
-    start: { type: String, required: true },
-    end: { type: String, required: true },
+    start: { type: Date, required: true },
+    end: { type: Date, required: true },
   },
   { timestamp: true } // 자동으로 created, update 설정
 );
