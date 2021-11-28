@@ -1,6 +1,6 @@
 # Schedule Mangement
 
-#### 일정관리 웹 프로젝트 입니다.
+#### 일정관리 프로젝트 입니다.
 
 <br>
 
@@ -44,27 +44,38 @@
 
 <br>
 
-### 🥫[PostmanAPI](https://documenter.getpostman.com/view/14760695/UV5afvbH)
+- ### 🥫 [PostmanAPI Link](https://documenter.getpostman.com/view/14760695/UV5afvbH)
+
+- ### 📁[API Description Link ](https://github.com/hyjoong/Schedule-management/wiki/API-Description)
 
 <br>
 
 ## ⭐실행 순서
 
-```javascript
-git clone <repo address>
+---
 
-// server 실행
+<br>
+
+### 1 설치
+
+```javascript
+git clone
+```
+
+### 2 서버 실행
+
+```javascript
 cd server
 mv .envsample .env
 yarn
 yarn start
+```
 
 서버 정상 실행 시
-```
 
 ![](https://images.velog.io/images/hyunjoong/post/752fd4f7-1d91-4b12-ab59-7e12244d7d5a/image.png)
 
-#### .env File 수정
+### 3 .env File 수정
 
 ```javascript
  JWT_SECRET=  본인의 JWT SECRET KEY 입력
@@ -72,10 +83,9 @@ yarn start
  DB_PASSWORD = 본인의 Mongo DB Password 입력
 ```
 
-```javascript
-// client 실행
+### 4. client 실행
 
-cd ..        // root 경로로 이동
+```javascript
 cd client
 yarn
 yarn start
@@ -114,7 +124,7 @@ yarn start
 
 ![](https://images.velog.io/images/hyunjoong/post/1263fa4d-dbcd-4db2-815e-c89ff36398f2/image.png)
 
-#### 로그인한 유저의 계획을 받아오고 계획들이 달력에 표시 됩니다.
+#### 로그인한 유저의 계획들이 달력에 표시 됩니다.
 
 <br>
 
