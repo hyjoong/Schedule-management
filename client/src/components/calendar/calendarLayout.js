@@ -33,7 +33,6 @@ const CalendarLayout = () => {
         })
       );
     }
-    console.log("data Loaded");
   }, [dispatch, user]);
   // schedule data load
 

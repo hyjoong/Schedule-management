@@ -23,7 +23,7 @@ const Signup = () => {
     if (signUpDone) {
       navigate("/login");
     }
-  }, [signUpDone, navigate]);
+  }, []);
 
   const dispatch = useDispatch();
   const {

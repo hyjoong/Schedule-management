@@ -30,16 +30,12 @@ const loadPlanAPI = async (data) => {
 
 const addPlanAPI = async (data) => {
   const { title, start, end } = data;
-  console.log(title, start, end);
-  console.log(start.slice(0, 10));
-  console.log(end.slice(0, 10));
   const res = await req(`/schedules`, {
     method: "POST",
     headers: getHeaders(),
     body: JSON.stringify({ title, start, end }),
   });
   saveToken(res.token);
-  console.log(res);
   return res;
 };
 
@@ -76,7 +72,6 @@ function* loadPlan(action) {
 }
 
 function* addPlan(action) {
-  console.log("액션은", action);
   try {
     const result = yield call(addPlanAPI, action.data);
     console.log("add_plan_result", result);
@@ -117,8 +112,6 @@ function* deletePlan(action) {
       data: result.data,
     });
   } catch (err) {
-    console.log("에러발생 !!", err);
-    console.log("에러발생 err.response =  !!", err.response);
     yield put({
       type: DELETE_PLAN_FAILURE,
       data: err.response.data,

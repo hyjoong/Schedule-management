@@ -13,7 +13,7 @@ const App = () => {
     if (!user) {
       navigate("/login");
     }
-  }, [navigate, user]);
+  }, [user]);
   return (
     <Routes>
       <Route exact path="/" element={<Main />}></Route>
