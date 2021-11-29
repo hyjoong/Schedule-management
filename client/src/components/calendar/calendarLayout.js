@@ -78,6 +78,7 @@ const CalendarLayout = () => {
           width="100%"
           dateClick={handleDate}
           events={events}
+          displayEventTime={false}
         ></FullCalendar>
         {isModal && (
           <ModalComponent handleCancel={handleCancel}>

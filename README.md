@@ -122,7 +122,7 @@ yarn start
 
 ## Calendar 메뉴
 
-![](https://images.velog.io/images/hyunjoong/post/1263fa4d-dbcd-4db2-815e-c89ff36398f2/image.png)
+![](https://images.velog.io/images/hyunjoong/post/e5872083-87bc-4999-8ff0-37e90d1c075f/image.png)
 
 #### 로그인한 유저의 계획들이 달력에 표시 됩니다.
 
@@ -130,12 +130,18 @@ yarn start
 
 #### 달력을 클릭하면 모달창이 열리며 일정 시작 날짜,종료 날짜, 계획을 입력해서 계획을 추가할 수 있습니다.
 
-![](https://images.velog.io/images/hyunjoong/post/31e90e2c-9b88-4c00-be6f-c2f556bb3366/image.png)
+![](https://images.velog.io/images/hyunjoong/post/e9df3c44-12fb-4158-a276-284e6678684e/image.png)
+
+<br>
+
+#### 등록 버튼을 눌러서 쇼핑하기 일정을 추가한 결과
+
+![](https://images.velog.io/images/hyunjoong/post/6cf47396-6e94-4d00-82a1-02eb8025c887/image.png)
 
 ## Schedule 메뉴
 
-![](https://images.velog.io/images/hyunjoong/post/365633ce-63dd-401d-b547-9849d0674724/image.png)
+![](https://images.velog.io/images/hyunjoong/post/fcbbe4c3-ad15-430b-a22d-28001e31d7fe/image.png)
 
-#### Schedule 메뉴로 이동해서 계획들의 D-Day를 볼 수 있고 삭제하고 싶은 계획은 삭제 버튼을 눌러서 삭제할 수 있습니다.(날짜가 지난 계획들은 D+로 표시)
+#### Schedule 메뉴로 이동해서 계획들의 D-Day를 볼 수 있고 삭제하고 싶은 계획은 삭제 버튼을 눌러서 삭제할 수 있습니다.
 
 <br>
