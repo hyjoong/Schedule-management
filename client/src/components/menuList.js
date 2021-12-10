@@ -30,7 +30,7 @@ const MenuList = ({ onChangeScreen }) => {
   return (
     <>
       <Menu
-        style={{ width: 256, height: "100%" }}
+        style={{ minWidth: 256, height: "100%" }}
         defaultSelectedKeys={["1"]}
         mode="inline"
       >

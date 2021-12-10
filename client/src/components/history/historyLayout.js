@@ -2,26 +2,40 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { FlexCenter, Grid } from "../shared/flexContainer";
 
+const MockData = [
+  {
+    id: 1,
+    text: "밥 먹기",
+  },
+  {
+    id: 2,
+    text: "공부 하기",
+  },
+  {
+    id: 3,
+    text: "산책 하기",
+  },
+  {
+    id: 4,
+    text: "영화 보기",
+  },
+];
+
 const HistoryLayout = () => {
   return (
     <HistoryWrapper>
       <Tab>
         <TabTitle>일정 공유 </TabTitle>
+        <TabRegister>글 작성</TabRegister>
       </Tab>
       <HIstoryContainer>
-        <HistoryCard>
-          <Img />
-          <HistoryText>밥먹기</HistoryText>
-        </HistoryCard>
-        <HistoryCard>
-          <Img />
-        </HistoryCard>
-        <HistoryCard>
-          <Img />
-        </HistoryCard>
-        <HistoryCard>
-          <Img />
-        </HistoryCard>
+        {!!MockData &&
+          MockData.map((card, idx) => (
+            <HistoryCard>
+              <Img />
+              <HistoryText>{card.text}</HistoryText>
+            </HistoryCard>
+          ))}
       </HIstoryContainer>
     </HistoryWrapper>
   );
@@ -37,6 +51,7 @@ const HistoryWrapper = styled.div`
 `;
 
 const Tab = styled.div`
+  position: relative;
   width: 100%;
   height: 50px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -46,6 +61,18 @@ const Tab = styled.div`
 const TabTitle = styled(FlexCenter)`
   width: 100%;
   height: 100%;
+  @media ${({ theme }) => theme.device.mobile} {
+    display: none;
+  }
+`;
+
+const TabRegister = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  outline: none;
+  padding: 0.3rem;
 `;
 
 const HIstoryContainer = styled(Grid)`
@@ -72,15 +99,13 @@ const HistoryCard = styled.div`
 `;
 
 const Img = styled.div`
-  height: 50%;
+  min-height: 50%;
   background-color: blue;
 `;
 
 const HistoryText = styled.span`
-  @media ${({ theme }) => theme.device.mobile} {
-    display: none;
-  }
   padding: 1rem;
+  overflow-y: auto;
 `;
 
 export default HistoryLayout;
