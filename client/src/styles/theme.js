@@ -1,11 +1,13 @@
 const deviceSizes = {
-  mobile: "500px",
+  mobile: "800px",
   tablet: "1000px",
+  desktop: "1200px",
 };
 
 const device = {
   mobile: `screen and (max-width: ${deviceSizes.mobile})`,
   tablet: `screen and (max-width: ${deviceSizes.tablet})`,
+  desktop: `screen and (max-width: ${deviceSizes.desktop})`,
 };
 
 export const theme = {

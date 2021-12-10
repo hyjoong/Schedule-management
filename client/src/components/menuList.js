@@ -92,14 +92,18 @@ const MenuList = ({ onChangeScreen }) => {
           <Menu.Item
             key="5"
             onClick={(e) => changeScreen(e)}
-            style={{ fontSize: "1rem", marginTop: "0.2rem", cursor: "pointer" }}
+            style={{ fontSize: "1rem", marginTop: "0.8rem", cursor: "pointer" }}
           >
             내 정보
           </Menu.Item>
           <Menu.Item
             key="6"
             onClick={(e) => handleLogout(e)}
-            style={{ fontSize: "1rem", marginTop: "0.2rem", cursor: "pointer" }}
+            style={{
+              fontSize: "1rem",
+              marginTop: "0.8rem",
+              cursor: "pointer",
+            }}
           >
             로그아웃
           </Menu.Item>
