@@ -5,7 +5,7 @@ import morgan from "morgan";
 import helmet from "helmet";
 import authRouter from "./router/auth.js";
 import scheduleRouter from "./router/schedule.js";
-import postRouter from "./router/post.js";
+import boardRouter from "./router/board.js";
 import { connectDB } from "./database/database.js";
 import { config } from "./config.js";
 
@@ -18,7 +18,7 @@ app.use(morgan("tiny"));
 
 app.use("/auth", authRouter);
 app.use("/schedules", scheduleRouter);
-app.use("/post", postRouter);
+app.use("/board", boardRouter);
 
 app.use((req, res, next) => {
   res.sendStatus(404);

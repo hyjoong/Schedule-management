@@ -22,3 +22,7 @@ let db;
 export const getSchedule = () => {
   return db.collection("schedules");
 };
+
+export const getBoard = () => {
+  return db.collection("board");
+};
