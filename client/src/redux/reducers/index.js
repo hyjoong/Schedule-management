@@ -3,7 +3,7 @@ import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import ScheduleReducer from "./schedule";
 import authReducer from "./auth";
-import PostReducer from "./post";
+import BoardReducer from "./board";
 
 const persistConfig = {
   key: "root",
@@ -14,7 +14,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   authReducer,
   ScheduleReducer,
-  PostReducer,
+  BoardReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);

@@ -20,16 +20,16 @@ const validateBoard = [
 
 router.get("/", isAuth, boardController.getBoards);
 
-//GET /boards/:id
+//GET /board/:id
 router.get("/:id", isAuth, boardController.getBoard);
 
 // POST /board
 router.post("/", isAuth, validateBoard, boardController.createBoard);
 
-// PUT /boards/:id
+// PUT /board/:id
 router.put("/:id", isAuth, validateBoard, boardController.updateBoard);
 
-//DELETE /boards/:id
+//DELETE /board/:id
 router.delete("/:id", isAuth, boardController.deleteBoard);
 
 export default router;
