@@ -6,6 +6,7 @@ import {
   LOAD_PLAN,
   DELETE_PLAN,
   ADD_BOARD,
+  LOAD_BOARD,
 } from "./actionType";
 
 const LoginAction = (data) => {
@@ -49,6 +50,12 @@ const DeleteAction = (data) => {
   };
 };
 
+const LoadBoardAction = () => {
+  return {
+    type: LOAD_BOARD,
+  };
+};
+
 const AddBoardAction = (data) => {
   return {
     type: ADD_BOARD,
@@ -64,4 +71,5 @@ export {
   LoadPlanAction,
   DeleteAction,
   AddBoardAction,
+  LoadBoardAction,
 };

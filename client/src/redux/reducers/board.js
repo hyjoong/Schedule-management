@@ -2,13 +2,13 @@ import produce from "immer";
 import {
   LOAD_BOARD,
   LOAD_BOARD_SUCCESS,
-  LOAD_PLAN_FAILURE,
+  LOAD_BOARD_FAILURE,
   ADD_BOARD,
   ADD_BOARD_SUCCESS,
   ADD_BOARD_FAILURE,
   DELETE_BOARD,
   DELETE_BOARD_SUCCESS,
-  DELETE_PLAN_FAILURE,
+  DELETE_BOARD_FAILURE,
   UPDATE_BOARD,
   UPDATE_BOARD_SUCCESS,
   UPDATE_BOARD_FAILURE,
@@ -19,7 +19,12 @@ import {
 
 export const initialState = {
   images: [],
-  postText: [],
+  boardText: [
+    // {
+    //   id: 1,
+    //   text: "zz",
+    // },
+  ],
   loadBoardLoading: false,
   loadBoardError: null,
   loadBoardDone: false,
@@ -38,7 +43,7 @@ export const initialState = {
 };
 
 const BoardReducer = (state = initialState, action) => {
-  produce(state, (draft) => {
+  return produce(state, (draft) => {
     switch (action.type) {
       case UPLOAD_IMAGE:
         draft.uploadImageLoading = true;
@@ -68,10 +73,11 @@ const BoardReducer = (state = initialState, action) => {
       case LOAD_BOARD_SUCCESS:
         draft.loadBoardLoading = false;
         draft.loadBoardDone = true;
-        draft.postText = draft.postText.concat(action.data);
+        draft.boardText = action.data;
+        draft.boardText.concat(action.data);
         break;
 
-      case LOAD_PLAN_FAILURE:
+      case LOAD_BOARD_FAILURE:
         draft.loadBoardLoading = true;
         draft.loadBoardDone = false;
         break;
@@ -86,7 +92,7 @@ const BoardReducer = (state = initialState, action) => {
         console.log(action.data); // text 값
         draft.addBoardLoading = false;
         draft.addBoardDone = true;
-        draft.postText.unshift(action.data);
+        draft.boardText.unshift(action.data);
         break;
 
       case ADD_BOARD_FAILURE:
@@ -104,12 +110,12 @@ const BoardReducer = (state = initialState, action) => {
         console.log(action.data); // id값 받아오기
         draft.deleteBoardLoading = false;
         draft.deleteBoardDone = true;
-        draft.postText = draft.postText.filter(
+        draft.boardText = draft.boardText.filter(
           (text) => text.id !== action.data
         );
         break;
 
-      case DELETE_PLAN_FAILURE:
+      case DELETE_BOARD_FAILURE:
         draft.deleteBoardLoading = false;
         draft.deleteBoardError = action.error;
 
@@ -124,7 +130,7 @@ const BoardReducer = (state = initialState, action) => {
       case UPDATE_BOARD_SUCCESS:
         draft.updateBoardLoading = false;
         draft.updateBoardDone = true;
-        const updatePost = draft.postText;
+        const updatePost = draft.boardText;
         // 임시 로직임 나중에 수정 !
         updatePost[
           draft.action.data.findIndex((post) => post.id === action.data.ids)

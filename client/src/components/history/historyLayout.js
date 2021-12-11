@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { FlexCenter, Grid } from "../shared/flexContainer";
-
+import { useDispatch, useSelector } from "react-redux";
+import { LoadBoardAction } from "../../redux/action";
 const MockData = [
   {
     id: 1,
@@ -22,6 +23,16 @@ const MockData = [
 ];
 
 const HistoryLayout = () => {
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.authReducer);
+  const boards = useSelector((state) => state.BoardReducer.boardText);
+  console.log(boards);
+  useEffect(() => {
+    if (user) {
+      dispatch(LoadBoardAction());
+    }
+  }, [dispatch, user]);
+
   return (
     <HistoryWrapper>
       <Tab>
@@ -29,11 +40,11 @@ const HistoryLayout = () => {
         <TabRegister>글 작성</TabRegister>
       </Tab>
       <HIstoryContainer>
-        {!!MockData &&
-          MockData.map((card, idx) => (
-            <HistoryCard>
+        {!!boards &&
+          boards.map((board, idx) => (
+            <HistoryCard key={idx}>
               <Img />
-              <HistoryText>{card.text}</HistoryText>
+              <HistoryText>{board.text}</HistoryText>
             </HistoryCard>
           ))}
       </HIstoryContainer>

@@ -12,6 +12,7 @@ import {
   UPDATE_BOARD,
   DELETE_BOARD,
   LOAD_BOARD,
+  LOAD_BOARD_SUCCESS,
 } from "../redux/actionType";
 
 const loadBoardAPI = async (data) => {
@@ -48,6 +49,10 @@ function* loadBoard(action) {
   try {
     const result = yield call(loadBoardAPI, action.data);
     console.log("load res =", result);
+    yield put({
+      type: LOAD_BOARD_SUCCESS,
+      data: result,
+    });
   } catch (err) {
     yield put({
       type: LOAD_BOARD_FAILURE,
