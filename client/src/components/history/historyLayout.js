@@ -3,30 +3,15 @@ import styled from "styled-components";
 import { FlexCenter, Grid } from "../shared/flexContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { LoadBoardAction } from "../../redux/action";
-const MockData = [
-  {
-    id: 1,
-    text: "밥 먹기",
-  },
-  {
-    id: 2,
-    text: "공부 하기",
-  },
-  {
-    id: 3,
-    text: "산책 하기",
-  },
-  {
-    id: 4,
-    text: "영화 보기",
-  },
-];
+import Tab from "../@commons/tab";
+import { useNavigate } from "react-router-dom";
 
 const HistoryLayout = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { user } = useSelector((state) => state.authReducer);
   const boards = useSelector((state) => state.BoardReducer.boardText);
-  console.log(boards);
+
   useEffect(() => {
     if (user) {
       dispatch(LoadBoardAction());
@@ -37,7 +22,9 @@ const HistoryLayout = () => {
     <HistoryWrapper>
       <Tab>
         <TabTitle>일정 공유 </TabTitle>
-        <TabRegister>글 작성</TabRegister>
+        <TabRegister onClick={() => navigate("/board/write")}>
+          글 작성
+        </TabRegister>
       </Tab>
       <HIstoryContainer>
         {!!boards &&
@@ -61,17 +48,10 @@ const HistoryWrapper = styled.div`
   overflow-y: auto;
 `;
 
-const Tab = styled.div`
-  position: relative;
-  width: 100%;
-  height: 50px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-`;
-
 const TabTitle = styled(FlexCenter)`
   width: 100%;
   height: 100%;
+  cursor: pointer;
   @media ${({ theme }) => theme.device.mobile} {
     display: none;
   }
@@ -84,6 +64,7 @@ const TabRegister = styled.button`
   border: 1px solid rgba(0, 0, 0, 0.1);
   outline: none;
   padding: 0.3rem;
+  cursor: pointer;
 `;
 
 const HIstoryContainer = styled(Grid)`
