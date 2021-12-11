@@ -3,6 +3,7 @@ import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import ScheduleReducer from "./schedule";
 import authReducer from "./auth";
+import PostReducer from "./post";
 
 const persistConfig = {
   key: "root",
@@ -13,6 +14,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   authReducer,
   ScheduleReducer,
+  PostReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);

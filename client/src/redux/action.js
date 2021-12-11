@@ -5,6 +5,7 @@ import {
   SIGNUP,
   LOAD_PLAN,
   DELETE_PLAN,
+  ADD_POST,
 } from "./actionType";
 
 const LoginAction = (data) => {
@@ -47,6 +48,14 @@ const DeleteAction = (data) => {
     data,
   };
 };
+
+const AddPostAction = (data) => {
+  return {
+    type: ADD_POST,
+    data,
+  };
+};
+
 export {
   LoginAction,
   LogoutAction,
@@ -54,4 +63,5 @@ export {
   SignupAction,
   LoadPlanAction,
   DeleteAction,
+  AddPostAction,
 };
