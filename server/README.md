@@ -24,6 +24,16 @@ yarn start
 
 ## Schema
 
+#### User
+
+```javascript
+{
+  name: String;
+  email: String;
+  password: String;
+}
+```
+
 #### Schedule
 
 ```javascript
@@ -36,12 +46,16 @@ yarn start
 }
 ```
 
-#### User
+#### Schedule
 
 ```javascript
 {
+  userId: String;
   name: String;
-  email: String;
-  password: String;
+  text: String;
+  image: {
+    data: Buffer,
+    contentType: String
+  }
 }
 ```

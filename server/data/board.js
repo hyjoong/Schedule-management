@@ -7,6 +7,7 @@ const BoardSchema = new Mongoose.Schema(
     userId: { type: String, required: true },
     name: { type: String, required: true },
     text: { type: String, required: true },
+    image: { data: Buffer, contentType: String, required: false },
   },
   { timestamp: true } // 자동으로 created, update 설정
 );
