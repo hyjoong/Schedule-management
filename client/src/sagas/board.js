@@ -24,7 +24,7 @@ const loadBoardAPI = async (data) => {
 
 const addBoardAPI = async (data) => {
   const { text } = data;
-  const res = await req(`board`, {
+  const res = await req(`/board`, {
     method: "POST",
     headers: getHeaders(),
     body: JSON.stringify({ text }),

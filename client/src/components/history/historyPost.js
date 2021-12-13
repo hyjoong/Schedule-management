@@ -1,15 +1,43 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import styled from "styled-components";
+import { Form, Input } from "antd";
 import { useDispatch } from "react-redux";
 import Tab from "../@commons/tab";
 import { FlexCenter } from "../shared/flexContainer";
 import { useNavigate } from "react-router-dom";
+import { ADD_BOARD } from "../../redux/actionType";
+import useInput from "../../hooks/useinput";
+import { validateText } from "../../validations/plan";
 
 const HistoryPost = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [files, setFiles] = useState([]);
+  const { text, setText } = useInput(validateText);
 
-  const onSubmit = () => {};
+  const handleUpload = (e) => {
+    e.preventDefault();
+    const img = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", img);
+    const file = e.target.files[0];
+    setFiles([...files, { uploadedFile: file }]);
+    console.log("파일은:", files);
+  };
+
+  const onSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+
+      // formData.append("text", text);
+      // console.log("전달되는 formData = ", formData);
+      dispatch({
+        type: ADD_BOARD,
+        //   data: formData,
+      });
+    },
+    [dispatch, text, files]
+  );
 
   return (
     <PostWrapper>
@@ -17,16 +45,39 @@ const HistoryPost = () => {
         <TabBack onClick={() => navigate("/")}>뒤로가기</TabBack>
         <TabTitle>글 작성 </TabTitle>
       </Tab>
-      <PostForm onSubmit={onSubmit}>
+      <Form onSubmit={onSubmit}>
         <FileUploadContainer>
           <Label>
             <LabelText>+</LabelText>
-            <InputElement type="file" accept="image/*" />
+            <InputElement
+              type="file"
+              accept="image/*"
+              onChange={handleUpload}
+            />
           </Label>
         </FileUploadContainer>
-        <TextInput tpye="text" placeholder="글자를 입력하세요" />
-        <RegisterButton type="submit">등록</RegisterButton>
-      </PostForm>
+        <PreviewImageContainer>
+          {!!files.length &&
+            files.map((img, index) => (
+              <PreviewImage
+                src={img}
+                alt="preview-img"
+                key={`preview-image-${index + 1}`}
+              />
+            ))}
+        </PreviewImageContainer>
+        <TextInput
+          tpye="text"
+          placeholder="글자를 입력하세요"
+          onChange={setText}
+        />
+        <Form.Item>
+          <Input placeholder="input placeholder" />
+        </Form.Item>
+        <RegisterButton type="submit" onClick={onSubmit}>
+          등록
+        </RegisterButton>
+      </Form>
     </PostWrapper>
   );
 };
@@ -57,12 +108,23 @@ const TabBack = styled.button`
   cursor: pointer;
 `;
 
-const PostForm = styled.form``;
+// const PostForm = styled.form``;
 
 const FileUploadContainer = styled.div`
   margin: 1rem;
   min-height: 120px;
   display: flex;
+`;
+
+const PreviewImageContainer = styled.div`
+  display: flex;
+  height: 120px;
+`;
+
+const PreviewImage = styled.img`
+  width: 120px;
+  height: 100%;
+  margin: 0 5px;
 `;
 
 const Label = styled.label`
