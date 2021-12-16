@@ -81,4 +81,25 @@ describe("Auth Middleware", () => {
     expect(response._getJSONData().message).toBe("Authentication Error");
     expect(next).not.toBeCalled();
   });
+
+  // it(" 유효한 토큰 값이 들어왔을 때", async () => {
+  //   const token = faker.random.alphaNumeric(128);
+  //   const userId = faker.random.alphaNumeric(32);
+  //   const request = httpMocks.createRequest({
+  //     method: "GET",
+  //     url: "/schedule",
+  //     headers: { authorization: `Bearer ${token}` },
+  //   });
+  //   const response = httpMocks.createResponse();
+  //   const next = jest.fn();
+  //   jwt.verify = jest.fn((token, secret, callback) => {
+  //     callback(undefined, { id: userId });
+  //   });
+  //   userReposotory.findById = jest.fn((id) => Promise.resolve({ id }));
+
+  //   await isAuth(request, response, next);
+
+  //   expect(request).toMatchObject({ userId, token });
+  //   expect(next).toHaveBeenCalledTimes(1);
+  // });
 });
