@@ -1,12 +1,11 @@
 import httpMocks from "node-mocks-http";
-import { isAuth } from "../../middleware/auth.js";
+import { isAuth } from "../../../middleware/auth.js";
 import faker from "faker";
 import jwt from "jsonwebtoken";
-import * as userReposotory from "../../middleware/auth.js";
-import { findById } from "../../data/auth.js";
+import * as userReposotory from "../../../middleware/auth.js";
 
 jest.mock("jsonwebtoken");
-jest.mock("../../data/auth.js");
+jest.mock("../../../data/auth.js");
 
 describe("Auth Middleware", () => {
   it(" Authorization header가 없는경우 401을 return", () => {
@@ -82,24 +81,24 @@ describe("Auth Middleware", () => {
     expect(next).not.toBeCalled();
   });
 
-  // it(" 유효한 토큰 값이 들어왔을 때", async () => {
-  //   const token = faker.random.alphaNumeric(128);
-  //   const userId = faker.random.alphaNumeric(32);
-  //   const request = httpMocks.createRequest({
-  //     method: "GET",
-  //     url: "/schedule",
-  //     headers: { authorization: `Bearer ${token}` },
-  //   });
-  //   const response = httpMocks.createResponse();
-  //   const next = jest.fn();
-  //   jwt.verify = jest.fn((token, secret, callback) => {
-  //     callback(undefined, { id: userId });
-  //   });
-  //   userReposotory.findById = jest.fn((id) => Promise.resolve({ id }));
+  it(" 유효한 토큰 값이 들어왔을 때", async () => {
+    const token = faker.random.alphaNumeric(128);
+    const userId = faker.random.alphaNumeric(32);
+    const request = httpMocks.createRequest({
+      method: "GET",
+      url: "/schedule",
+      headers: { authorization: `Bearer ${token}` },
+    });
+    const response = httpMocks.createResponse();
+    const next = jest.fn();
+    jwt.verify = jest.fn((token, secret, callback) => {
+      callback(undefined, { id: userId });
+    });
+    userReposotory.findById = jest.fn((id) => Promise.resolve({ id }));
 
-  //   await isAuth(request, response, next);
+    await isAuth(request, response, next);
 
-  //   expect(request).toMatchObject({ userId, token });
-  //   expect(next).toHaveBeenCalledTimes(1);
-  // });
+    expect(request).toMatchObject({ userId, token });
+    expect(next).toHaveBeenCalledTimes(1);
+  });
 });
