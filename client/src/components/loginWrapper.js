@@ -34,7 +34,8 @@ const LoginWrapper = () => {
     }
   }, [logInError]);
 
-  const onLogin = async () => {
+  const onLogin = async (e) => {
+    e.preventDefault();
     dispatch(
       LoginAction({
         name,
@@ -49,7 +50,7 @@ const LoginWrapper = () => {
 
   return (
     <FlexCenter>
-      <form>
+      <form onSubmit={onLogin}>
         <Block
           style={{
             marginTop: "2.5rem",
@@ -77,7 +78,7 @@ const LoginWrapper = () => {
             type="submit"
             backgroundColor={theme.navy}
             style={{ width: "100%", marginTop: "15px", color: "white" }}
-            onClick={onLogin}
+            type="submit"
           >
             로그인
           </Button>

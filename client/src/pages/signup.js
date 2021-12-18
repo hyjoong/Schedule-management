@@ -16,14 +16,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { SignupAction } from "../redux/action";
 
 const Signup = () => {
-  const { signUpDone } = useSelector((state) => state.authReducer);
-
+  const { signUpDone, signUpError } = useSelector((state) => state.authReducer);
   const navigate = useNavigate();
-  useEffect(() => {
-    if (signUpDone) {
-      navigate("/login");
-    }
-  }, []);
 
   const dispatch = useDispatch();
   const {
@@ -42,7 +36,8 @@ const Signup = () => {
     setValueOnChange: onUsernameChange,
   } = useInput(validatename);
 
-  const onSIgnup = async () => {
+  const onSIgnup = async (e) => {
+    e.preventDefault();
     dispatch(
       SignupAction({
         email,
@@ -50,10 +45,17 @@ const Signup = () => {
         name,
       })
     );
+    if (signUpDone) {
+      navigate("/login");
+    }
+    if (signUpError) {
+      alert("회원가입 오류");
+      return;
+    }
   };
   return (
     <FlexCenter>
-      <form>
+      <form onSubmit={onSIgnup}>
         <Block
           style={{
             marginTop: "2.5rem",
@@ -87,7 +89,7 @@ const Signup = () => {
           <Button
             backgroundColor={theme.lightBlue}
             style={{ width: "100%", marginTop: "15px" }}
-            onClick={onSIgnup}
+            type="submit"
           >
             회원가입
           </Button>
