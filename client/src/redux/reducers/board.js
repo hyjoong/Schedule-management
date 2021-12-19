@@ -18,6 +18,7 @@ import {
 } from "../actionType";
 
 export const initialState = {
+  boards: [],
   images: [],
   boardText: [
     // {
@@ -55,7 +56,7 @@ const BoardReducer = (state = initialState, action) => {
         console.log(action.data);
         draft.uploadImageLoading = false;
         draft.uploadImageDone = true;
-        draft.images = draft.images.concat(action.data);
+        draft.images = draft.boards.concat(action.data);
         break;
 
       case UPLOAD_IMAGE_FAILURE:

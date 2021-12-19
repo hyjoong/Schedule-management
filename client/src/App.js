@@ -5,6 +5,7 @@ import Signup from "./pages/signup";
 import Main from "./pages/main";
 import HistoryLayout from "./components/history/historyLayout";
 import Write from "./pages/write";
+import Detail from "./components/detail/detail";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
 
       <Route exact path="/board" element={<HistoryLayout />}></Route>
       <Route exact path="/board/write" element={<Write />}></Route>
+      <Route path="/detail/:id" element={<Detail />}></Route>
     </Routes>
   );
 };

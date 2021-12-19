@@ -11,7 +11,6 @@ const HistoryLayout = () => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.authReducer);
   const boards = useSelector((state) => state.BoardReducer.boardText);
-
   useEffect(() => {
     if (user) {
       dispatch(LoadBoardAction());
@@ -29,7 +28,10 @@ const HistoryLayout = () => {
       <HIstoryContainer>
         {!!boards &&
           boards.map((board, idx) => (
-            <HistoryCard key={idx}>
+            <HistoryCard
+              key={idx}
+              onClick={() => navigate(`/detail/${board.id}`)}
+            >
               <Img />
               <HistoryText>{board.text}</HistoryText>
             </HistoryCard>

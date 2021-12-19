@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from "react";
 import styled from "styled-components";
-import { Form, Input } from "antd";
 import { useDispatch } from "react-redux";
 import Tab from "../@commons/tab";
 import { FlexCenter } from "../shared/flexContainer";
@@ -12,32 +11,39 @@ import { validateText } from "../../validations/plan";
 const HistoryPost = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [files, setFiles] = useState([]);
+  const [files, setFiles] = useState("");
+  const [imgBase64, setImgBase64] = useState("");
   const { text, setText } = useInput(validateText);
 
   const handleUpload = (e) => {
     e.preventDefault();
     const img = e.target.files[0];
-    const formData = new FormData();
-    formData.append("image", img);
-    const file = e.target.files[0];
-    setFiles([...files, { uploadedFile: file }]);
-    console.log("파일은:", files);
+
+    let reader = new FileReader();
+    reader.onloadend = () => {
+      const base64 = reader.result;
+      if (base64) {
+        setImgBase64(base64.toString());
+      }
+    };
+    if (e.target.files[0]) {
+      reader.readAsDataURL(e.target.files[0]);
+      setFiles(e.target.files[0]);
+    }
   };
 
-  const onSubmit = useCallback(
-    (e) => {
-      e.preventDefault();
+  const onSubmit = async (e) => {
+    e.preventDefault();
 
-      // formData.append("text", text);
-      // console.log("전달되는 formData = ", formData);
-      dispatch({
-        type: ADD_BOARD,
-        //   data: formData,
-      });
-    },
-    [dispatch, text, files]
-  );
+    console.log("게시글 등록");
+    let formData = new FormData();
+    formData.append("text ", text);
+    formData.append("image", files);
+    dispatch({
+      type: ADD_BOARD,
+      data: formData,
+    });
+  };
 
   return (
     <PostWrapper>
@@ -45,7 +51,7 @@ const HistoryPost = () => {
         <TabBack onClick={() => navigate("/")}>뒤로가기</TabBack>
         <TabTitle>글 작성 </TabTitle>
       </Tab>
-      <Form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit}>
         <FileUploadContainer>
           <Label>
             <LabelText>+</LabelText>
@@ -57,27 +63,16 @@ const HistoryPost = () => {
           </Label>
         </FileUploadContainer>
         <PreviewImageContainer>
-          {!!files.length &&
-            files.map((img, index) => (
-              <PreviewImage
-                src={img}
-                alt="preview-img"
-                key={`preview-image-${index + 1}`}
-              />
-            ))}
+          {!!files && <PreviewImage src={files} alt="preview-img" />}
         </PreviewImageContainer>
         <TextInput
           tpye="text"
           placeholder="글자를 입력하세요"
           onChange={setText}
         />
-        <Form.Item>
-          <Input placeholder="input placeholder" />
-        </Form.Item>
-        <RegisterButton type="submit" onClick={onSubmit}>
-          등록
-        </RegisterButton>
-      </Form>
+
+        <RegisterButton type="submit">등록</RegisterButton>
+      </form>
     </PostWrapper>
   );
 };
