@@ -1,22 +1,41 @@
-import Mongoose from "mongoose";
-import { useVirtualId } from "../database/database.js";
+import SQ from "sequelize";
+import { sequelize } from "../database/database.js";
 
-const userSchema = new Mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true },
-  password: { type: String, required: true },
-});
+const DataTypes = SQ.DataTypes;
 
-useVirtualId(userSchema); // 가상의 id추가
-const User = Mongoose.model("User", userSchema); // User라는 collection을 userSchema와 연결
+export const User = sequelize.define(
+  "user",
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      allowNull: false,
+      primaryKey: true,
+    },
+    name: {
+      type: DataTypes.STRING(40),
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING(128),
+      allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING(128),
+      allowNull: false,
+    },
+  },
+  { timestamps: false }
+);
 
 export async function findByName(name) {
-  return User.findOne({ name });
+  return User.findOne({ where: { name } });
 }
-export const findById = async (id) => {
-  return User.findById(id);
+
+export const findById = (id) => {
+  return User.findByPk(id);
 };
 
 export async function createUser(user) {
-  return new User(user).save().then((data) => data.id);
+  return User.create(user).then((data) => data.dataValues.id);
 }
