@@ -31,6 +31,8 @@
     "mysql2": "^2.3.3",
     "node-mocks-http": "^1.11.0",
     "nodemon": "^2.0.12",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
     "sequelize": "^6.12.4"
   }
 }
