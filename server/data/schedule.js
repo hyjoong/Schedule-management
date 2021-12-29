@@ -29,7 +29,14 @@ const Plan = sequelize.define("plan", {
 Plan.belongsTo(User);
 
 const INCLUDE_USER = {
-  attributes: ["id", "title", "userId", [Sequalize.col("user.name"), "name"]],
+  attributes: [
+    "id",
+    "title",
+    "userId",
+    "start",
+    "end",
+    [Sequalize.col("user.name"), "name"],
+  ],
   include: {
     model: User,
     attributes: [],
