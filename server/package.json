@@ -28,7 +28,9 @@
     "mongoose": "^6.0.12",
     "moongoose": "^0.0.5",
     "morgan": "^1.10.0",
+    "mysql2": "^2.3.3",
     "node-mocks-http": "^1.11.0",
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "sequelize": "^6.12.4"
   }
 }

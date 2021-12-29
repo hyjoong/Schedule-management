@@ -6,8 +6,8 @@ import helmet from "helmet";
 import authRouter from "./router/auth.js";
 import scheduleRouter from "./router/schedule.js";
 import boardRouter from "./router/board.js";
-import { connectDB } from "./database/database.js";
 import { config } from "./config.js";
+import { sequelize } from "./database/database.js";
 
 const app = express();
 
@@ -29,10 +29,6 @@ app.use((error, req, res, next) => {
   res.sendStatus(500);
 });
 
-connectDB()
-  .then((db) => {
-    console.log(`✔ server start ${config.host.port}`);
-    console.log("✔ DB Connected");
-    app.listen(config.host.port);
-  })
-  .catch("error", console.error);
+sequelize.sync().then((client) => {
+  app.listen(config.host.port);
+});

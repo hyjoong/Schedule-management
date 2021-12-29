@@ -1,52 +1,69 @@
-import Mongoose from "mongoose";
-import { useVirtualId } from "../database/database.js";
-import * as userRepository from "./auth.js";
+import SQ from "sequelize";
+import { User } from "./auth.js";
+import { sequelize } from "../database/database.js";
 
-const BoardSchema = new Mongoose.Schema(
-  {
-    userId: { type: String, required: true },
-    name: { type: String, required: true },
-    text: { type: String, required: true },
-    image: { data: Buffer, contentType: String, required: false },
+const DataTypes = SQ.DataTypes;
+const Sequalize = SQ.Sequelize;
+
+const Board = sequelize.define("board", {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    allowNull: false,
+    primaryKey: true,
   },
-  { timestamp: true } // 자동으로 created, update 설정
-);
+  text: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+});
 
-useVirtualId(BoardSchema);
-const Board = Mongoose.model("Board", BoardSchema);
+Board.belongsTo(User);
+
+const INCLUDE_USER = {
+  attributes: ["id", "text", "userId", [Sequalize.col("user.name"), "name"]],
+  include: {
+    model: User,
+    attributes: [],
+  },
+};
 
 export const getAll = async () => {
-  return Board.find();
+  return Board.findAll({ ...INCLUDE_USER });
 };
 
 export const getAllByUsername = async (name) => {
-  return Board.find({ name });
+  return Board.findAll({
+    ...INCLUDE_USER,
+    include: {
+      ...INCLUDE_USER.include,
+      where: { name },
+    },
+  });
 };
 
 export const getById = async (id) => {
-  return Board.findById(id);
+  return Board.findOne({
+    where: { id },
+    ...INCLUDE_USER,
+  });
 };
 
 export const create = async (text, userId) => {
-  return userRepository.findById(userId).then((user) =>
-    new Board({
-      text,
-      userId,
-      name: user.name,
-    }).save()
-  );
+  return Board.create({ text, userId }); //
 };
 
 export const update = async (id, text) => {
-  return Board.findByIdAndUpdate(
-    id,
-    {
-      text,
-    },
-    { returnOriginal: false }
-  );
+  return Board.findByPk(id, INCLUDE_USER) //
+    .then((board) => {
+      board.text = text;
+      return board.save();
+    });
 };
 
 export const remove = async (id) => {
-  return Board.findByIdAndDelete(id);
+  return Board.findByPk(id) //
+    .then((board) => {
+      board.destroy();
+    });
 };
