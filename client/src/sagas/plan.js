@@ -18,7 +18,7 @@ import {
   LOAD_PLAN_SUCCESS,
 } from "../redux/actionType";
 import { req, getHeaders } from "../apis/request";
-import { saveToken } from "../utils/token";
+import { client } from "../apis/axios";
 
 const loadPlanAPI = async (data) => {
   const { user } = data;
@@ -30,12 +30,11 @@ const loadPlanAPI = async (data) => {
 
 const addPlanAPI = async (data) => {
   const { title, start, end } = data;
-  const res = await req(`/schedules`, {
-    method: "POST",
-    headers: getHeaders(),
-    body: JSON.stringify({ title, start, end }),
+  const res = client.post(`/schedules`, {
+    title,
+    start,
+    end,
   });
-  saveToken(res.token);
   return res;
 };
 
@@ -45,10 +44,12 @@ function updatePlanAPI(data) {
 
 const deletePlanAPI = async (data) => {
   const id = data;
-  return await req(`/schedules/${id}`, {
-    method: "DELETE",
-    headers: getHeaders(),
-  });
+  const res = client.delete(`/schedules/${id}`, {});
+  return res;
+  // return await req(`/schedules/${id}`, {
+  //   method: "DELETE",
+  //   headers: getHeaders(),
+  // });
 };
 
 function donePlanAPI(data) {
